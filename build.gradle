@@ -27,10 +27,23 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+	//implementation 'org.springframework.boot:spring-boot-starter-log4j2'
+	implementation 'org.springframework.boot:spring-boot-starter-actuator'
+	//compile 'org.liquibase:liquibase-core'
+	//compile 'org.hibernate:hibernate-java8'
+	//compile 'org.hibernate:hibernate-validator'
+	//compile 'org.hibernate:hibernate-envers'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.h2database:h2'
 	runtimeOnly 'org.postgresql:postgresql'
+	compile 'org.apache.httpcomponents:httpclient'
+	compile 'commons-codec:commons-codec:1.11'
+	compile 'org.json:json:20160212'
+	compile 'io.springfox:springfox-swagger2:2.8.0'
+	compile 'io.springfox:springfox-swagger-ui:2.8.0'
+	compile 'io.swagger:swagger-annotations:1.5.14'
+	compile 'com.github.javafaker:javafaker:0.13'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 	annotationProcessor 'org.projectlombok:lombok'
 	providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
@@ -41,4 +54,44 @@ dependencies {
 
 test {
 	useJUnitPlatform()
+}
+
+task cleanDatabase(type: Delete) {
+	doFirst {
+		delete 'database.mv.db'
+		delete 'database.trace.db'
+	}
+}
+
+tasks.clean.dependsOn cleanDatabase
+
+task frontendInstall(type: Exec) {
+	group = 'frontend'
+	doFirst {
+		workingDir 'frontend'
+		commandLine = ['npm', 'ci']
+	}
+}
+
+
+task frontendBuild(type: Exec) {
+	group 'frontend'
+	doFirst {
+		workingDir 'frontend'
+		commandLine = ['npm', 'run', 'build']
+	}
+}
+
+task frontendClear(type: Delete) {
+	group = 'frontend'
+	doFirst {
+		delete 'src/main/resources/frontend'
+	}
+}
+
+task frontendClearCache(type: Delete) {
+	group = 'frontend'
+	doFirst {
+		delete 'frontend/node_modules'
+	}
 }
