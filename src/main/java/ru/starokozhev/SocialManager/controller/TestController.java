@@ -1,46 +1,54 @@
 package ru.starokozhev.SocialManager.controller;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
-import ru.starokozhev.SocialManager.exceptions.TestException;
+import ru.starokozhev.SocialManager.entity.Message;
+import ru.starokozhev.SocialManager.entity.Views;
+import ru.starokozhev.SocialManager.repository.MessageRepository;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 @RestController
-@RequestMapping("test")
+@RequestMapping("message")
+@RequiredArgsConstructor
 public class TestController {
 
-    private List<Map<String, String>> messages = new ArrayList<Map<String, String>>() {{
-        add(new HashMap<String, String>() {{ put("id", "1"); put("text", "First message"); }});
-        add(new HashMap<String, String>() {{ put("id", "2"); put("text", "Second message"); }});
-        add(new HashMap<String, String>() {{ put("id", "3"); put("text", "Third message"); }});
-    }};
+    private final MessageRepository messageRepository;
 
     @GetMapping
-    public List list() {
-        return messages;
+    @JsonView(Views.AccessList.class)
+    public List<Message> list() {
+        return messageRepository.findAll();
     }
 
     @GetMapping("{id}")
-    public Map<String, String> get(@PathVariable(name = "id") String id) {
-        return messages.get(Integer.parseInt(id));
+    @JsonView(Views.AccessCard.class)
+    public Message getOne(@PathVariable("id") Message message) {
+        return message;
     }
 
     @PostMapping
-    public String add(@RequestBody String body) {
-        return body;
+    @JsonView(Views.AccessCard.class)
+    public Message create(@RequestBody Message message) {
+        return messageRepository.save(message);
     }
 
-    @PatchMapping
-    public String edit(@RequestBody String body) {
-        return body;
+    @PutMapping("{id}")
+    @JsonView(Views.AccessCard.class)
+    public Message update(@PathVariable("id") Message messageFromDb,
+                                      @RequestBody Message message) {
+
+        BeanUtils.copyProperties(message, messageFromDb, "id");
+
+        return messageRepository.save(messageFromDb);
     }
 
     @DeleteMapping("{id}")
-    public void delete(@PathVariable Long id) {
-
+    @JsonView(Views.AccessCard.class)
+    public void delete(@PathVariable("id") Message message) {
+        messageRepository.delete(message);
     }
 
 }

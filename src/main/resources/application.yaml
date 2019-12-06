@@ -1,0 +1,31 @@
+spring:
+  application:
+    name: social-manager
+  jackson:
+    serialization:
+      write_dates_as_timestamps: false
+    deserialization:
+      accept_empty_string_as_null_object: true
+  datasource:
+    tomcat:
+      max-wait: 5000
+      max-active: 10
+      test-on-borrow: true
+    username: postgres
+    password: 1182Vekz73
+    url: jdbc:postgresql://localhost/social-manager
+    driver-class-name: org.postgresql.Driver
+  http:
+    multipart:
+      max-request-size: 5MB
+      max-file-size: 12MB
+  devtools:
+    restart:
+      enabled: false
+  jpa:
+    generate-ddl: true
+    properties:
+      hibernate:
+        jdbc:
+          lob:
+            non_contextual_creation: true
