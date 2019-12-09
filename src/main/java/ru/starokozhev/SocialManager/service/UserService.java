@@ -38,6 +38,7 @@ public class UserService {
         user.setEmail(wrapper.getEmail());
         //TODO use bcrypt
         user.setPassword(wrapper.getPassword());
+        user.setLogin(wrapper.getLogin());
         user.setRole(Role.USER);
         user.setDateRegister(LocalDateTime.now());
 

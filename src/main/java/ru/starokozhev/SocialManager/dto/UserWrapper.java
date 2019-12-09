@@ -8,7 +8,6 @@ import ru.starokozhev.SocialManager.entity.User;
 import ru.starokozhev.SocialManager.entity.Views;
 import ru.starokozhev.SocialManager.enums.Role;
 
-import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -19,31 +18,39 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class UserWrapper {
 
+    @JsonView(Views.AccessList.class)
     private Long id;
 
     @NotBlank(message = "Необходимо указать имя")
+    @JsonView(Views.AccessList.class)
     private String name;
 
     @NotBlank(message = "Необходимо указать логин")
+    @JsonView(Views.AccessCard.class)
     private String login;
 
     @Email(message = "Email должен быть корректным адресом электронной почты")
+    @JsonView(Views.AccessCard.class)
     private String email;
 
     @JsonView(Views.AccessForRegister.class)
     @Max(value = 36, message = "Пароль слишком длинный. Максимальная длина 32 символа.")
     @Min(value = 4, message = "Пароль должен быть больше 4 символов.")
-    @NonNull
     private String password;
 
+    @JsonView(Views.AccessCard.class)
     private LocalDateTime dateRegister;
 
+    @JsonView(Views.AccessCard.class)
     private LocalDateTime dateLastAuth;
 
+    @JsonView(Views.AccessCard.class)
     private LocalDateTime dateLastOperation;
 
+    @JsonView(Views.AccessCard.class)
     private Role role;
 
+    @JsonView(Views.AccessCard.class)
     private Double balance;
 
     public UserWrapper(User user) {
@@ -56,6 +63,8 @@ public class UserWrapper {
             name = user.getName();
             login = user.getLogin();
             email = user.getEmail();
+            //todo hide
+            password = user.getPassword();
             dateRegister = user.getDateRegister();
             dateLastAuth = user.getDateLastAuth();
             dateLastOperation = user.getDateLastOperation();
