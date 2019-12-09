@@ -8,6 +8,8 @@ public final class Views {
 
     public interface AccessCard extends AccessList {}
 
-    public interface AccessForAdmin extends AccessCard {}
+    public interface AccessForRegister extends AccessCard {}
+
+    public interface AccessForAdmin extends AccessForRegister {}
 
 }
