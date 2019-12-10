@@ -1,6 +1,7 @@
 package ru.starokozhev.SocialManager.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ru.starokozhev.SocialManager.dto.UserWrapper;
 import ru.starokozhev.SocialManager.entity.User;
@@ -20,7 +21,7 @@ public class UserService {
     private final static String USER_EXIST = "Пользователь с таким логином или электронной почтой уже существует!";
     private final static Double DEFAULT_USER_BALANCE = 0D;
 
-
+    private final BCryptPasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
 
     @Transactional
@@ -36,8 +37,7 @@ public class UserService {
         user.setBalance(DEFAULT_USER_BALANCE);
         user.setDateLastAuth(LocalDateTime.now());
         user.setEmail(wrapper.getEmail());
-        //TODO use bcrypt
-        user.setPassword(wrapper.getPassword());
+        user.setPassword(passwordEncoder.encode(wrapper.getPassword()));
         user.setLogin(wrapper.getLogin());
         user.setRole(Role.USER);
         user.setDateRegister(LocalDateTime.now());
@@ -55,8 +55,7 @@ public class UserService {
         wrapper.fromWrapper(userFromDb);
 
         if (wrapper.getPassword() != null)
-            //TODO use bcrypt
-            userFromDb.setPassword(wrapper.getPassword());
+            userFromDb.setPassword(passwordEncoder.encode(wrapper.getPassword()));
 
         return new UserWrapper(userRepository.save(userFromDb));
     }

@@ -7,6 +7,7 @@ import ru.starokozhev.SocialManager.dto.UserWrapper;
 import ru.starokozhev.SocialManager.entity.Views;
 import ru.starokozhev.SocialManager.service.UserService;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -18,13 +19,13 @@ public class UserController {
 
     @PostMapping("register")
     @JsonView(Views.AccessForRegister.class)
-    public UserWrapper register(UserWrapper userWrapper) {
+    public UserWrapper register(@RequestBody UserWrapper userWrapper) {
         return userService.add(userWrapper);
     }
 
     @PatchMapping
     @JsonView(Views.AccessForRegister.class)
-    public UserWrapper edit(UserWrapper userWrapper) {
+    public UserWrapper edit(@RequestBody @Valid UserWrapper userWrapper) {
         return userService.edit(userWrapper);
     }
 
