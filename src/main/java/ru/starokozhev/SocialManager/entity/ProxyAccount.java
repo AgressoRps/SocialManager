@@ -1,0 +1,43 @@
+package ru.starokozhev.SocialManager.entity;
+
+import lombok.Data;
+import ru.starokozhev.SocialManager.enums.ProxyHttpType;
+import ru.starokozhev.SocialManager.enums.ProxyState;
+
+import javax.persistence.*;
+import java.time.LocalDateTime;
+
+@Entity
+@Table(name = "proxy_account")
+@Data
+public class ProxyAccount {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    private String url;
+
+    private String login;
+
+    private String password;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_bought_account")
+    private BoughtAccount boughtAccount;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "proxy_state")
+    private ProxyState proxyState;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "proxy_http_type")
+    private ProxyHttpType proxyHttpType;
+
+    @Column(name = "date_last_use")
+    private LocalDateTime dateLastUse;
+
+    @Column(name = "date_create")
+    private LocalDateTime dateCreate;
+
+}
