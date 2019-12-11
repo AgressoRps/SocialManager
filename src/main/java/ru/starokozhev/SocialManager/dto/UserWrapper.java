@@ -3,9 +3,7 @@ package ru.starokozhev.SocialManager.dto;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 import ru.starokozhev.SocialManager.entity.User;
-import ru.starokozhev.SocialManager.entity.Views;
 import ru.starokozhev.SocialManager.enums.Role;
 
 import javax.validation.constraints.Email;

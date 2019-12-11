@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonView;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.starokozhev.SocialManager.dto.UserWrapper;
-import ru.starokozhev.SocialManager.entity.Views;
+import ru.starokozhev.SocialManager.dto.Views;
 import ru.starokozhev.SocialManager.service.UserService;
 
 import javax.validation.Valid;

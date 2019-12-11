@@ -1,4 +1,4 @@
-package ru.starokozhev.SocialManager.entity;
+package ru.starokozhev.SocialManager.dto;
 
 public final class Views {
 
