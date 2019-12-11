@@ -5,7 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 import ru.starokozhev.SocialManager.entity.Message;
-import ru.starokozhev.SocialManager.entity.Views;
+import ru.starokozhev.SocialManager.dto.Views;
 import ru.starokozhev.SocialManager.repository.MessageRepository;
 
 import java.util.List;
