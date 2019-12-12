@@ -45,6 +45,7 @@ public class CustomAuthenticationProvider implements org.springframework.securit
             throw new BadCredentialsException("Не правильный логин или пароль");
         }
     }
+
     @Override
     public boolean supports(Class<?>aClass) {
         return aClass.equals(UsernamePasswordAuthenticationToken.class);
