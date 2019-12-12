@@ -15,4 +15,6 @@ public interface BoughtAccountRepository extends JpaRepository<BoughtAccount, Lo
 
     List<BoughtAccount> findAllByIsPayed(Boolean isPayed);
 
+    BoughtAccount findBoughtAccountById(Long id);
+
 }

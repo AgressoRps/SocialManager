@@ -6,12 +6,14 @@ import ru.starokozhev.SocialManager.entity.Account;
 import ru.starokozhev.SocialManager.enums.AccountName;
 import ru.starokozhev.SocialManager.enums.AccountType;
 
+import java.util.List;
+
 public interface AccountRepository extends JpaRepository<Account, Long>,
         JpaSpecificationExecutor<Account> {
 
-    Account findAccountByName(AccountName name);
+    List<Account> findAccountByName(AccountName name);
 
-    Account findAccountByType(AccountType type);
+    List<Account> findAccountByType(AccountType type);
 
     Account findAccountById(Long id);
 
