@@ -4,18 +4,14 @@ import com.fasterxml.jackson.annotation.JsonView;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
-import ru.starokozhev.SocialManager.entity.Message;
 import ru.starokozhev.SocialManager.dto.Views;
-import ru.starokozhev.SocialManager.repository.MessageRepository;
 
-import java.util.List;
-
-@RestController
+/*@RestController
 @RequestMapping("message")
-@RequiredArgsConstructor
+@RequiredArgsConstructor*/
 public class TestController {
 
-    private final MessageRepository messageRepository;
+    /*private final MessageRepository messageRepository;
 
     @GetMapping
     @JsonView(Views.AccessList.class)
@@ -49,6 +45,6 @@ public class TestController {
     @JsonView(Views.AccessCard.class)
     public void delete(@PathVariable("id") Message message) {
         messageRepository.delete(message);
-    }
+    }*/
 
 }
