@@ -57,4 +57,6 @@ public class BoughtAccountService {
         return null;
     }
 
+    //TODO add close method (delete)
+
 }
