@@ -7,6 +7,7 @@ import ru.starokozhev.SocialManager.dto.BoughtAccountWrapper;
 import ru.starokozhev.SocialManager.entity.BoughtAccount;
 import ru.starokozhev.SocialManager.repository.BoughtAccountRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -57,6 +58,15 @@ public class BoughtAccountService {
         return null;
     }
 
-    //TODO add close method (delete)
+    public void delete(Long id) {
+        BoughtAccount boughtAccount = boughtAccountRepository.findBoughtAccountById(id);
+
+        //TODO add id order to message
+        if (boughtAccount == null)
+            throw new IllegalArgumentException("Заказ не найден");
+
+        boughtAccount.setDateClose(LocalDateTime.now());
+        boughtAccountRepository.save(boughtAccount);
+    }
 
 }
