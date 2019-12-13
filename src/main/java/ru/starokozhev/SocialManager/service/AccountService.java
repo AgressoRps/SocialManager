@@ -8,6 +8,7 @@ import ru.starokozhev.SocialManager.entity.Account;
 import ru.starokozhev.SocialManager.repository.AccountRepository;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -52,6 +53,15 @@ public class AccountService {
         return null;
     }
 
-    //TODO add close method (delete)
+    public void delete(Long id) {
+        Account account = accountRepository.findAccountById(id);
+
+        //TODO выводить id аккаунта, который ищем
+        if (account == null)
+            throw new IllegalArgumentException("Аккаунт не найден");
+
+        account.setDateClose(LocalDateTime.now());
+        accountRepository.save(account);
+    }
 
 }
