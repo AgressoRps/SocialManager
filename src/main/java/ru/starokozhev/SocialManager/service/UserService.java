@@ -3,6 +3,7 @@ package ru.starokozhev.SocialManager.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.starokozhev.SocialManager.dto.UserFilter;
 import ru.starokozhev.SocialManager.dto.UserWrapper;
 import ru.starokozhev.SocialManager.entity.User;
 import ru.starokozhev.SocialManager.enums.Role;
@@ -45,10 +46,13 @@ public class UserService {
         return new UserWrapper(userRepository.save(user));
     }
 
+    //TODO add method @GET CURRENT USER@
+
     @Transactional
     public UserWrapper edit(UserWrapper wrapper) {
         User userFromDb = userRepository.findUserById(wrapper.getId());
 
+        //TODO выводить id аккаунта, который ищем
         if (userFromDb == null)
             throw new IllegalArgumentException(USER_NOT_FOUND);
 
@@ -63,6 +67,7 @@ public class UserService {
     public UserWrapper getById(Long id) {
         User userFromDb = userRepository.findUserById(id);
 
+        //TODO выводить id аккаунта, который ищем
         if (userFromDb == null)
             throw new IllegalArgumentException(USER_NOT_FOUND);
 
@@ -80,9 +85,14 @@ public class UserService {
         userRepository.save(userFromDb);
     }
 
-    public List<UserWrapper> list() {
+    /*public List<UserWrapper> list() {
         return userRepository.findAllByDateCloseIsNullOrderByIdDesc()
                 .stream().map(UserWrapper::new).collect(Collectors.toList());
+    }*/
+
+    public List<UserWrapper> list(UserFilter filter) {
+        //TODO specifications
+        return null;
     }
 
 }
