@@ -44,4 +44,7 @@ public class BoughtAccount {
     @Column(name = "is_payed")
     private Boolean isPayed;
 
+    @Column(name = "date_close")
+    private LocalDateTime dateClose;
+
 }

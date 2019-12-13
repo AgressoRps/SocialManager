@@ -29,4 +29,7 @@ public class Account {
     @Column(name = "date_create")
     private LocalDateTime dateCreate;
 
+    @Column(name = "date_close")
+    private LocalDateTime dateClose;
+
 }
