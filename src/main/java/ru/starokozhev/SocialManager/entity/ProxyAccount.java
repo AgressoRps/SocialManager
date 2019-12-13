@@ -24,7 +24,7 @@ public class ProxyAccount {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_bought_account")
-    private BoughtAccount boughtAccount;
+    private OrderAccount orderAccount;
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "proxy_state")

@@ -3,7 +3,6 @@ package ru.starokozhev.SocialManager.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.parameters.P;
 import ru.starokozhev.SocialManager.entity.ProxyAccount;
 import ru.starokozhev.SocialManager.enums.ProxyHttpType;
 import ru.starokozhev.SocialManager.enums.ProxyState;
@@ -22,7 +21,7 @@ public class ProxyAccountWrapper {
 
     private String password;
 
-    private BoughtAccountWrapper boughtAccount;
+    private OrderAccountWrapper boughtAccount;
 
     private ProxyState proxyState;
 
@@ -44,7 +43,7 @@ public class ProxyAccountWrapper {
             url = proxyAccount.getUrl();
             login = proxyAccount.getLogin();
             password = proxyAccount.getPassword();
-            boughtAccount = new BoughtAccountWrapper(proxyAccount.getBoughtAccount());
+            boughtAccount = new OrderAccountWrapper(proxyAccount.getOrderAccount());
             proxyState = proxyAccount.getProxyState();
             proxyHttpType = proxyAccount.getProxyHttpType();
             dateLastUse = proxyAccount.getDateLastUse();

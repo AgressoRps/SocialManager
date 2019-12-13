@@ -2,10 +2,10 @@ package ru.starokozhev.SocialManager.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.starokozhev.SocialManager.dto.BoughtAccountFilter;
-import ru.starokozhev.SocialManager.dto.BoughtAccountWrapper;
-import ru.starokozhev.SocialManager.entity.BoughtAccount;
-import ru.starokozhev.SocialManager.repository.BoughtAccountRepository;
+import ru.starokozhev.SocialManager.dto.OrderAccountFilter;
+import ru.starokozhev.SocialManager.dto.OrderAccountWrapper;
+import ru.starokozhev.SocialManager.entity.OrderAccount;
+import ru.starokozhev.SocialManager.repository.OrderAccountRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,13 +14,13 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BoughtAccountService {
 
-    private BoughtAccountRepository boughtAccountRepository;
+    private OrderAccountRepository orderAccountRepository;
 
     //TODO provide order to final, use after transactions for accounts (maybe)
 
-    public BoughtAccountWrapper add(BoughtAccountWrapper wrapper) {
-        BoughtAccount boughtAccount = new BoughtAccount();
-        wrapper.fromWrapper(boughtAccount);
+    public OrderAccountWrapper add(OrderAccountWrapper wrapper) {
+        OrderAccount orderAccount = new OrderAccount();
+        wrapper.fromWrapper(orderAccount);
 
         //TODO accounts
         //TODO setCurrentUser
@@ -28,45 +28,45 @@ public class BoughtAccountService {
         //TODO setDatePayed когда опалтит
         //TODO setIsPayed когда оплатит
 
-        return new BoughtAccountWrapper(boughtAccountRepository.save(boughtAccount));
+        return new OrderAccountWrapper(orderAccountRepository.save(orderAccount));
     }
 
-    public BoughtAccountWrapper edit(BoughtAccountWrapper wrapper) {
-        BoughtAccount boughtAccount = boughtAccountRepository.findBoughtAccountById(wrapper.getId());
+    public OrderAccountWrapper edit(OrderAccountWrapper wrapper) {
+        OrderAccount orderAccount = orderAccountRepository.findBoughtAccountById(wrapper.getId());
 
         //TODO add id order to message
-        if (boughtAccount == null)
+        if (orderAccount == null)
             throw new IllegalArgumentException("Заказ не найден");
 
-        wrapper.fromWrapper(boughtAccount);
+        wrapper.fromWrapper(orderAccount);
 
-        return new BoughtAccountWrapper(boughtAccountRepository.save(boughtAccount));
+        return new OrderAccountWrapper(orderAccountRepository.save(orderAccount));
     }
 
-    public BoughtAccountWrapper get(Long id) {
-        BoughtAccount boughtAccount = boughtAccountRepository.findBoughtAccountById(id);
+    public OrderAccountWrapper get(Long id) {
+        OrderAccount orderAccount = orderAccountRepository.findBoughtAccountById(id);
 
         //TODO add id order to message
-        if (boughtAccount == null)
+        if (orderAccount == null)
             throw new IllegalArgumentException("Заказ не найден");
 
-        return new BoughtAccountWrapper(boughtAccount);
+        return new OrderAccountWrapper(orderAccount);
     }
 
-    public List<BoughtAccountWrapper> list(BoughtAccountFilter filter) {
+    public List<OrderAccountWrapper> list(OrderAccountFilter filter) {
         //TODO build specification
         return null;
     }
 
     public void delete(Long id) {
-        BoughtAccount boughtAccount = boughtAccountRepository.findBoughtAccountById(id);
+        OrderAccount orderAccount = orderAccountRepository.findBoughtAccountById(id);
 
         //TODO add id order to message
-        if (boughtAccount == null)
+        if (orderAccount == null)
             throw new IllegalArgumentException("Заказ не найден");
 
-        boughtAccount.setDateClose(LocalDateTime.now());
-        boughtAccountRepository.save(boughtAccount);
+        orderAccount.setDateClose(LocalDateTime.now());
+        orderAccountRepository.save(orderAccount);
     }
 
 }

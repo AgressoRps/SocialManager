@@ -9,7 +9,7 @@ import java.util.Set;
 @Entity
 @Table(name = "bought_account")
 @Data
-public class BoughtAccount {
+public class OrderAccount {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
