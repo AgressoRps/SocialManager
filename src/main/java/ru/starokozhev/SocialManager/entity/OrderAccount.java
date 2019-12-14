@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
-@Table(name = "bought_account")
+@Table(name = "order_account")
 @Data
 public class OrderAccount {
 
@@ -18,12 +18,12 @@ public class OrderAccount {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_account",
-            joinColumns = @JoinColumn(name = "id_bought_account"),
+            joinColumns = @JoinColumn(name = "id_order_account"),
             inverseJoinColumns = @JoinColumn(name = "id_account")
     )
     private Set<Account> accounts;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "boughtAccount", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderAccount", fetch = FetchType.LAZY)
     private Set<ProxyAccount> proxies;
 
     @ManyToOne(fetch = FetchType.LAZY)

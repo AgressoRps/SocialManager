@@ -32,7 +32,7 @@ public class OrderAccountService {
     }
 
     public OrderAccountWrapper edit(OrderAccountWrapper wrapper) {
-        OrderAccount orderAccount = orderAccountRepository.findBoughtAccountById(wrapper.getId());
+        OrderAccount orderAccount = orderAccountRepository.findOrderAccountById(wrapper.getId());
 
         //TODO add id order to message
         if (orderAccount == null)
@@ -44,7 +44,7 @@ public class OrderAccountService {
     }
 
     public OrderAccountWrapper get(Long id) {
-        OrderAccount orderAccount = orderAccountRepository.findBoughtAccountById(id);
+        OrderAccount orderAccount = orderAccountRepository.findOrderAccountById(id);
 
         //TODO add id order to message
         if (orderAccount == null)
@@ -59,7 +59,7 @@ public class OrderAccountService {
     }
 
     public void delete(Long id) {
-        OrderAccount orderAccount = orderAccountRepository.findBoughtAccountById(id);
+        OrderAccount orderAccount = orderAccountRepository.findOrderAccountById(id);
 
         //TODO add id order to message
         if (orderAccount == null)

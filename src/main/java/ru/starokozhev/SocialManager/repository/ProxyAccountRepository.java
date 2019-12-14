@@ -12,7 +12,7 @@ import java.util.List;
 public interface ProxyAccountRepository extends JpaRepository<ProxyAccount, Long>,
         JpaSpecificationExecutor<ProxyAccount> {
 
-    List<ProxyAccount> findAllByBoughtAccount(OrderAccount orderAccount);
+    List<ProxyAccount> findAllByOrderAccount(OrderAccount orderAccount);
 
     List<ProxyAccount> findAllByProxyState(ProxyState proxyState);
 

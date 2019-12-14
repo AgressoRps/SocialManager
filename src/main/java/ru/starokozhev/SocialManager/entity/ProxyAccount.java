@@ -23,7 +23,7 @@ public class ProxyAccount {
     private String password;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_bought_account")
+    @JoinColumn(name = "id_order_account")
     private OrderAccount orderAccount;
 
     @Enumerated(value = EnumType.STRING)

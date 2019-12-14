@@ -21,7 +21,7 @@ public class ProxyAccountWrapper {
 
     private String password;
 
-    private OrderAccountWrapper boughtAccount;
+    private OrderAccountWrapper orderAccount;
 
     private ProxyState proxyState;
 
@@ -43,7 +43,7 @@ public class ProxyAccountWrapper {
             url = proxyAccount.getUrl();
             login = proxyAccount.getLogin();
             password = proxyAccount.getPassword();
-            boughtAccount = new OrderAccountWrapper(proxyAccount.getOrderAccount());
+            orderAccount = new OrderAccountWrapper(proxyAccount.getOrderAccount());
             proxyState = proxyAccount.getProxyState();
             proxyHttpType = proxyAccount.getProxyHttpType();
             dateLastUse = proxyAccount.getDateLastUse();

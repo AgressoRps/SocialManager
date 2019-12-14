@@ -14,6 +14,6 @@ public interface OrderAccountRepository extends JpaRepository<OrderAccount, Long
 
     List<OrderAccount> findAllByIsPayed(Boolean isPayed);
 
-    OrderAccount findBoughtAccountById(Long id);
+    OrderAccount findOrderAccountById(Long id);
 
 }
