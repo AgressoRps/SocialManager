@@ -20,13 +20,13 @@ public class UserController {
 
     @PostMapping("register")
     @JsonView(Views.AccessForRegister.class)
-    public UserWrapper register(@RequestBody UserWrapper userWrapper) {
+    public UserWrapper register(@Valid UserWrapper userWrapper) {
         return userService.add(userWrapper);
     }
 
     @PatchMapping
     @JsonView(Views.AccessForRegister.class)
-    public UserWrapper edit(@RequestBody @Valid UserWrapper userWrapper) {
+    public UserWrapper edit(@Valid UserWrapper userWrapper) {
         return userService.edit(userWrapper);
     }
 

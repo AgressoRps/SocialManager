@@ -32,8 +32,6 @@ public class UserWrapper {
     private String email;
 
     @JsonView(Views.AccessForRegister.class)
-    @Max(value = 36, message = "Пароль слишком длинный. Максимальная длина 32 символа.")
-    @Min(value = 4, message = "Пароль должен быть больше 4 символов.")
     private String password;
 
     @JsonView(Views.AccessCard.class)

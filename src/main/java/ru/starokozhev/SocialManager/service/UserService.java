@@ -26,7 +26,7 @@ public class UserService {
 
     @Transactional
     public UserWrapper add(UserWrapper wrapper) {
-        User userFormDb = userRepository.findUserByEmailOrLogin(wrapper.getEmail(), wrapper.getLogin());
+        User userFormDb = userRepository.findUserByEmailIgnoreCaseOrLoginIgnoreCase(wrapper.getEmail(), wrapper.getLogin());
 
         if (userFormDb != null)
             throw new IllegalArgumentException(USER_EXIST);

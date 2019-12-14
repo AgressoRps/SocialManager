@@ -10,11 +10,11 @@ import java.util.List;
 
 public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificationExecutor<User> {
 
-    User findUserByEmail(String email);
+    User findUserByEmailIgnoreCase(String email);
 
-    User findUserByLogin(String login);
+    User findUserByLoginIgnoreCase(String login);
 
-    User findUserByEmailOrLogin(String email, String login);
+    User findUserByEmailIgnoreCaseOrLoginIgnoreCase(String email, String login);
 
     User findUserById(Long id);
 

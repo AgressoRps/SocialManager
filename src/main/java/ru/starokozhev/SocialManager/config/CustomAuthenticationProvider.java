@@ -33,13 +33,15 @@ public class CustomAuthenticationProvider implements org.springframework.securit
         String username = authentication.getName();
         String password = authentication.getCredentials().toString();
 
-        User userFromDb = userRepository.findUserByEmailOrLogin(username, username);
+        User userFromDb = userRepository.findUserByEmailIgnoreCaseOrLoginIgnoreCase(username, username);
 
         if (userFromDb == null)
             throw new BadCredentialsException("Пользователь не найден");
 
-        if ((userFromDb.getLogin().equals(username) || userFromDb.getEmail().equals(username))
-                && passwordEncoder.matches(password, userFromDb.getPassword())) {
+        if ((userFromDb.getLogin().toUpperCase().equals(username.toUpperCase()) ||
+                userFromDb.getEmail().toUpperCase().equals(username.toUpperCase())) &&
+                passwordEncoder.matches(password, userFromDb.getPassword())) {
+
             return new UsernamePasswordAuthenticationToken(username, passwordEncoder.encode(password), Collections.emptyList());
         } else {
             throw new BadCredentialsException("Не правильный логин или пароль");
