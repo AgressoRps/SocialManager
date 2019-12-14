@@ -2,7 +2,7 @@ package ru.starokozhev.SocialManager.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import ru.starokozhev.SocialManager.dto.AccountFilter;
+import ru.starokozhev.SocialManager.dto.filter.AccountFilter;
 import ru.starokozhev.SocialManager.dto.AccountWrapper;
 import ru.starokozhev.SocialManager.entity.Account;
 import ru.starokozhev.SocialManager.repository.AccountRepository;

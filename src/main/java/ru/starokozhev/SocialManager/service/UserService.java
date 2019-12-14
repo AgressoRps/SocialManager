@@ -3,7 +3,7 @@ package ru.starokozhev.SocialManager.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import ru.starokozhev.SocialManager.dto.UserFilter;
+import ru.starokozhev.SocialManager.dto.filter.UserFilter;
 import ru.starokozhev.SocialManager.dto.UserWrapper;
 import ru.starokozhev.SocialManager.entity.User;
 import ru.starokozhev.SocialManager.enums.Role;
@@ -12,7 +12,6 @@ import ru.starokozhev.SocialManager.repository.UserRepository;
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
