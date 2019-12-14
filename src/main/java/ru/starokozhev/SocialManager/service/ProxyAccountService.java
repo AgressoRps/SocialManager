@@ -52,7 +52,7 @@ public class ProxyAccountService {
         return new ProxyAccountWrapper(proxyAccount);
     }
 
-    public List<ProxyAccountFilter> list(ProxyAccountFilter filter) {
+    public List<ProxyAccountWrapper> list(ProxyAccountFilter filter) {
         //TODO build specification
         return null;
     }
