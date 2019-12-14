@@ -12,7 +12,7 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class BoughtAccountService {
+public class OrderAccountService {
 
     private OrderAccountRepository orderAccountRepository;
 

@@ -13,7 +13,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AccountController {
 
-    private AccountService accountService;
+    private final AccountService accountService;
 
     @PostMapping
     public AccountWrapper add(AccountWrapper wrapper) {
