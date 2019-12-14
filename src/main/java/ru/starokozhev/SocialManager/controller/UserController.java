@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.starokozhev.SocialManager.dto.UserWrapper;
 import ru.starokozhev.SocialManager.dto.Views;
+import ru.starokozhev.SocialManager.dto.filter.UserFilter;
 import ru.starokozhev.SocialManager.service.UserService;
 
 import javax.validation.Valid;
@@ -40,8 +41,8 @@ public class UserController {
     }
 
     @GetMapping
-    public List<UserWrapper> list() {
-        return userService.list();
+    public List<UserWrapper> list(UserFilter filter) {
+        return userService.list(filter);
     }
 
 
