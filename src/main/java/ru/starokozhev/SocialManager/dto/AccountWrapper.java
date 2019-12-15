@@ -3,7 +3,6 @@ package ru.starokozhev.SocialManager.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.security.core.parameters.P;
 import ru.starokozhev.SocialManager.entity.Account;
 import ru.starokozhev.SocialManager.enums.AccountName;
 import ru.starokozhev.SocialManager.enums.AccountType;
