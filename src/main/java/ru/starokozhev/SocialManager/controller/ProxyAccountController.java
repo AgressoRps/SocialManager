@@ -30,7 +30,7 @@ public class ProxyAccountController {
         return proxyAccountService.get(id);
     }
 
-    @PostMapping("{id}")
+    @DeleteMapping("{id}")
     public void delete(@PathVariable(name = "name") Long id) {
         proxyAccountService.delete(id);
     }

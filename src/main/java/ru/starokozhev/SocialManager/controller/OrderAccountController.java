@@ -30,7 +30,7 @@ public class OrderAccountController {
         return orderAccountService.get(id);
     }
 
-    @PostMapping("{id}")
+    @DeleteMapping("{id}")
     public void delete(@PathVariable(name = "id") Long id) {
         orderAccountService.delete(id);
     }
