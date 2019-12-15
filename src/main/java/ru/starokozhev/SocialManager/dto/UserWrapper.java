@@ -1,5 +1,6 @@
 package ru.starokozhev.SocialManager.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -34,12 +35,15 @@ public class UserWrapper {
     @JsonView(Views.AccessForRegister.class)
     private String password;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.mm.yyyy HH:mm")
     @JsonView(Views.AccessCard.class)
     private LocalDateTime dateRegister;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.mm.yyyy HH:mm")
     @JsonView(Views.AccessCard.class)
     private LocalDateTime dateLastAuth;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.mm.yyyy HH:mm")
     @JsonView(Views.AccessCard.class)
     private LocalDateTime dateLastOperation;
 
@@ -59,8 +63,7 @@ public class UserWrapper {
             name = user.getName();
             login = user.getLogin();
             email = user.getEmail();
-            //todo hide
-            password = user.getPassword();
+            //password = user.getPassword();
             dateRegister = user.getDateRegister();
             dateLastAuth = user.getDateLastAuth();
             dateLastOperation = user.getDateLastOperation();

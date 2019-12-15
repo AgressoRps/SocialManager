@@ -27,10 +27,10 @@ public class ProxyAccountWrapper {
 
     private ProxyHttpType proxyHttpType;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.mm.yy HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.mm.yyyy HH:mm")
     private LocalDateTime dateLastUse;
 
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.mm.yy HH:mm")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.mm.yyyy HH:mm")
     private LocalDateTime dateCreate;
 
     public ProxyAccountWrapper(ProxyAccount proxyAccount) {

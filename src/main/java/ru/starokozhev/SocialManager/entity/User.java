@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 @Data
 public class User {
 
+    //TODO integrate JWT for sessions
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
