@@ -1,11 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import Index from '@/components/Index'
-import Service from '@/components/Service'
-import Bootstrap from '@/components/Bootstrap'
+//import Service from '@/components/Service'
+//import Bootstrap from '@/components/Bootstrap'
 import User from '@/components/User'
-import Login from '@/components/Login'
-import Protected from '@/components/Protected'
+import Auth from '@/components/Auth'
+//import Login from '@/components/Login'
+//import Protected from '@/components/Protected'
 
 import store from './store'
 
@@ -15,7 +16,8 @@ const router = new Router({
     mode: 'history', // uris without hashes #, see https://router.vuejs.org/guide/essentials/history-mode.html#html5-history-mode
     routes: [
         { path: '/', name: 'Index', component: Index },
-        { path: '/user', name: 'User', component: User},
+        { path: '/member/:id', name: 'User', component: User },
+        { path: '/auth', name: 'Auth', component: Auth },
         //{ path: '/login', component: Login },
         /*{
             path: '/protected',
@@ -36,7 +38,7 @@ router.beforeEach((to, from, next) => {
         // if not, redirect to login page.
         if (!store.getters.isLoggedIn) {
             next({
-                path: '/login'
+                path: '/auth'
             })
         } else {
             next();

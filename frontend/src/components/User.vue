@@ -16,6 +16,7 @@
 
 <script>
 import api from "./backend-api";
+import router from './../router'
 
 export default {
    name: 'User',
@@ -35,7 +36,8 @@ export default {
    },
    methods: {
        loadSelectedUser() {
-           api.getUser(1).then(response => {
+       console.log($route.params.id);
+           api.getUser($route.params.id).then(response => {
                this.$data.id = response.data.id;
                this.$data.name = response.data.name;
                this.$data.login = response.data.login;
