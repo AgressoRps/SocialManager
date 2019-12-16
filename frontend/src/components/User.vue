@@ -1,8 +1,16 @@
 <template>
    <div id="user">
        <h3>Пользователи</h3>
-       <p>Counter: {{ counter }}</p>
-       <p>Username: {{ username }}</p>
+       <p>Идентификатор: {{ id }}</p>
+       <p>Имя пользователя: {{ name }}</p>
+       <p>Логин: {{ login }}</p>
+       <p>Электронная почта: {{ email }}</p>
+       <p>Пароль: {{ password }}</p>
+       <p>Дата регистрации: {{ dateRegister }}</p>
+       <p>Дата последней авторизации: {{ dateLastAuth }}</p>
+       <p>Дата последней операции: {{ dateLastOperation }}</p>
+       <p>Роль: {{ role }}</p>
+       <p>Баланс аккаунта: {{ balance }}</p>
    </div>
 </template>
 
@@ -13,15 +21,31 @@ export default {
    name: 'User',
    data() {
        return {
-           counter: 0,
-           username: ''
+           id                   : 0,
+           name                 : '',
+           login                : '',
+           email                : '',
+           password             : '',
+           dateRegister         : '',
+           dateLastAuth         : '',
+           dateLastOperation    : '',
+           role                 : '',
+           balance              : 0
        }
    },
    methods: {
-       loadUsers() {
+       loadSelectedUser() {
            api.getUser(1).then(response => {
-               this.$data.counter = response.data.id;
-               this.$data.username = response.data.username;
+               this.$data.id = response.data.id;
+               this.$data.name = response.data.name;
+               this.$data.login = response.data.login;
+               this.$data.email = response.data.email;
+               this.$data.password = response.data.password;
+               this.$data.dateRegister = response.data.dateRegister;
+               this.$data.dateLastAuth = response.data.dateLastAuth;
+               this.$data.dateLastOperation = response.data.dateLastOperation;
+               this.$data.role = response.data.role;
+               this.$data.balance = response.data.balance;
            })
            .catch(error => {
                console.log('ERROR: ' + error.response.data);
@@ -29,7 +53,7 @@ export default {
        }
    },
    mounted() {
-       this.loadUsers();
+       this.loadSelectedUser();
    }
 }
 </script>
