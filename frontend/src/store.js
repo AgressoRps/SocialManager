@@ -26,7 +26,7 @@ export default new Vuex.Store({
         auth({commit}, {user, password}) {
             return new Promise((resolve, reject) => {
                 console.log("Accessing backend with user: '" + user);
-                api.getSecured(user, password)
+                api.login(user, password)
                     .then(response => {
                         console.log("Response: '" + response.data + "' with Statuscode " + response.status);
                         if(response.status == 200) {
