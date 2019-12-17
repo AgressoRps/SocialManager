@@ -26,24 +26,24 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .authorizeRequests()
-                    .antMatchers("/", "/index", "/**").permitAll()
+                    .antMatchers("/", "/index", "/login", "/logout", "/register", "/css/**", "/js/**", "/img/**").permitAll()
                     .anyRequest().authenticated()
-                .and()
+                /*.and()
                     .formLogin()
                     .loginPage("/login")
                     .loginProcessingUrl("/login") // указываем action с формы логина
                     .usernameParameter("username") // Указываем параметры логина и пароля с формы логина
                     .passwordParameter("password")
-                    .permitAll()
+                    .permitAll()*/
                 .and()
                     .csrf().disable();
 
-        http
+        /*http
                 .logout()
                 .logoutSuccessUrl("/login") // указываем URL при удачном логауте
                 .logoutUrl("/logout")
                 .permitAll() // разрешаем делать логаут всем
-                .invalidateHttpSession(true); // делаем не валидной текущую сессию
+                .invalidateHttpSession(true); // делаем не валидной текущую сессию*/
     }
 
     @Override

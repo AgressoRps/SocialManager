@@ -1,23 +1,16 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Index from '@/components/Index'
-//import Service from '@/components/Service'
-//import Bootstrap from '@/components/Bootstrap'
-import User from '@/components/User'
-import Auth from '@/components/Auth'
-//import Login from '@/components/Login'
-//import Protected from '@/components/Protected'
 
 import store from './store'
 
 Vue.use(Router);
 
 const router = new Router({
-    mode: 'history', // uris without hashes #, see https://router.vuejs.org/guide/essentials/history-mode.html#html5-history-mode
+    mode: 'history',
     routes: [
-        { path: '/', name: 'Index', component: Index },
-        { path: '/member/:id', name: 'User', component: User },
-        { path: '/auth', name: 'Auth', component: Auth },
+        { path: '/', name: 'Index', component: () => import('@/components/Index') },
+        { path: '/member/:id', name: 'User', component: () => import('@/components/User') },
+        { path: '/auth', name: 'Auth', component: () => import('@/components/Auth') },
         //{ path: '/login', component: Login },
         /*{
             path: '/protected',

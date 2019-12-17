@@ -8,22 +8,22 @@ export default new Vuex.Store({
     state: {
         loginSuccess: false,
         loginError: false,
-        userName: null,
-        userPass: null
+        name: null,
+        password: null
     },
     mutations: {
         login_success(state, payload){
             state.loginSuccess = true;
-            state.userName = payload.userName;
-            state.userPass = payload.userPass;
+            state.name = payload.name;
+            state.password = payload.password;
         },
         login_error(state, payload){
             state.loginError = true;
-            state.userName = payload.userName;
+            state.name = payload.name;
         }
     },
     actions: {
-        login({commit}, {user, password}) {
+        auth({commit}, {user, password}) {
             return new Promise((resolve, reject) => {
                 console.log("Accessing backend with user: '" + user);
                 api.getSecured(user, password)
@@ -33,8 +33,8 @@ export default new Vuex.Store({
                             console.log("Login successful");
                             // place the loginSuccess state into our vuex store
                             commit('login_success', {
-                                userName: user,
-                                userPass: password
+                                name: user,
+                                password: password
                             });
                         }
                         resolve(response)
@@ -43,7 +43,7 @@ export default new Vuex.Store({
                         console.log("Error: " + error);
                         // place the loginError state into our vuex store
                         commit('login_error', {
-                            userName: user
+                            name: user
                         });
                         reject("Invalid credentials!")
                     })
@@ -53,7 +53,7 @@ export default new Vuex.Store({
     getters: {
         isLoggedIn: state => state.loginSuccess,
         hasLoginErrored: state => state.loginError,
-        getUserName: state => state.userName,
-        getUserPass: state => state.userPass
+        getName: state => state.name,
+        getPassword: state => state.password
     }
 })
