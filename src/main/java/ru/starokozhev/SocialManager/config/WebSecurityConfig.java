@@ -24,10 +24,41 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+        http.authorizeRequests()
+                .antMatchers("/", "/index", "/css/**", "/js/**", "/img/**").permitAll()
+                .antMatchers("/swagger-ui**").permitAll()
+                .antMatchers("/swagger-resources/**").permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/logout").authenticated()
+                .antMatchers("/auth").anonymous()
+                .antMatchers("/register").anonymous()
+
+                .anyRequest().fullyAuthenticated()
+
+                .and()
+                .csrf().disable();
+
+        http.formLogin()
+                // указываем action с формы логина
+                .loginProcessingUrl("/auth")
+                // Указываем параметры логина и пароля с формы логина
+                .usernameParameter("username")
+                .passwordParameter("password")
+                // даем доступ к форме логина всем
+                .permitAll();
+
+        http.logout()
+                // указываем URL при удачном логауте
+                .logoutSuccessUrl("/auth")
+                .logoutUrl("/logout")
+                // разрешаем делать логаут всем
+                .permitAll()
+                // делаем не валидной текущую сессию
+                .invalidateHttpSession(true);
+        /*http
                 .authorizeRequests()
                     .antMatchers("/", "/index", "/login", "/logout", "/register", "/css/**", "/js/**", "/img/**").permitAll()
-                    .anyRequest().authenticated()
+                    .anyRequest().authenticated()*/
                 /*.and()
                     .formLogin()
                     .loginPage("/login")
@@ -35,8 +66,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                     .usernameParameter("username") // Указываем параметры логина и пароля с формы логина
                     .passwordParameter("password")
                     .permitAll()*/
-                .and()
-                    .csrf().disable();
+                /*.and()
+                    .csrf().disable();*/
 
         /*http
                 .logout()
