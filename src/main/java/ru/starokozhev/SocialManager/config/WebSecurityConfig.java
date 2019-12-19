@@ -25,7 +25,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/", "/index", "/css/**", "/js/**", "/img/**").permitAll()
+                .antMatchers("/**", "/index", "/css/**", "/js/**", "/img/**").permitAll()
                 .antMatchers("/swagger-ui**").permitAll()
                 .antMatchers("/swagger-resources/**").permitAll()
                 .antMatchers("/admin/**").hasRole("ADMIN")

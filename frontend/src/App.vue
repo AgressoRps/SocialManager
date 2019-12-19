@@ -17,6 +17,11 @@ export default {
     return {
       msg: 'Добро пожаловать'
     }
+  },
+  computed: {
+    isLoggedIn() {
+      return this.$store.getters.isLoggedIn
+    }
   }
   //TODO get current user and set to member url and member name
 }

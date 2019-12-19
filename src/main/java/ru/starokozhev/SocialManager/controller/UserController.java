@@ -2,6 +2,7 @@ package ru.starokozhev.SocialManager.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 import ru.starokozhev.SocialManager.dto.UserWrapper;
 import ru.starokozhev.SocialManager.dto.Views;
@@ -18,15 +19,15 @@ public class UserController {
 
     private final UserService userService;
 
-    @PostMapping("register")
+    @PostMapping(path = "register")
     @JsonView(Views.AccessForRegister.class)
-    public UserWrapper register(@Valid UserWrapper userWrapper) {
+    public UserWrapper register(@RequestBody UserWrapper userWrapper) {
         return userService.add(userWrapper);
     }
 
     @PatchMapping
     @JsonView(Views.AccessForRegister.class)
-    public UserWrapper edit(@Valid UserWrapper userWrapper) {
+    public UserWrapper edit(@RequestBody UserWrapper userWrapper) {
         return userService.edit(userWrapper);
     }
 
