@@ -6,20 +6,6 @@ const AXIOS = axios.create({
   timeout: 1000
 });
 
-AXIOS.interceptors.request.use((request) => {
-      if (request.data && request.headers['Content-Type'] === 'application/x-www-form-urlencoded') {
-          request.data = qs.stringify(request.data);
-      }
-      return request;
-    });
-
-
-const configHeaders = {
-    "content-type": "application/json",
-    "Accept": "application/json"
-  };
-  
-
 export default {
 
     hello() {
@@ -32,10 +18,11 @@ export default {
         return AXIOS.post(`/user/` + firstName + '/' + lastName);
     },
     auth(user, password) {
+        var data = { username : user, password : password };
         return axios({
             method: 'post',
             url: '/auth',
-            data: { username : user, password : password },
+            data: qs.stringify(data),
             headers: {
                 'Access-Control-Allow-Origin': '*',
                 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE',
