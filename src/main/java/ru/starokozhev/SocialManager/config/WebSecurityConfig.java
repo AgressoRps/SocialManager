@@ -21,10 +21,16 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     private final CustomAuthenticationProvider customAuthenticationProvider;
+    private final RestAuthenticationEntryPoint restAuthenticationEntryPoint;
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.authorizeRequests()
+        http
+                .csrf().disable()
+                .exceptionHandling()
+                .authenticationEntryPoint(restAuthenticationEntryPoint)
+                .and()
+                .authorizeRequests()
                 .antMatchers("/**", "/index", "/css/**", "/js/**", "/img/**").permitAll()
                 .antMatchers("/swagger-ui**").permitAll()
                 .antMatchers("/swagger-resources/**").permitAll()
@@ -33,10 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/auth").anonymous()
                 .antMatchers("/register").anonymous()
 
-                .anyRequest().fullyAuthenticated()
-
-                .and()
-                .csrf().disable();
+                .anyRequest().fullyAuthenticated();
 
         http.formLogin()
                 // указываем action с формы логина

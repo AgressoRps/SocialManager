@@ -13,7 +13,7 @@ import org.springframework.web.servlet.NoHandlerFoundException;
 public class MainController {
 
     @ExceptionHandler(NoHandlerFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
+    @ResponseStatus(HttpStatus.OK)
     public String handleResourceNotFoundException() {
         return "index.html";
     }
