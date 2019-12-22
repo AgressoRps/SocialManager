@@ -1,8 +1,15 @@
 package ru.starokozhev.SocialManager.service;
 
 import lombok.RequiredArgsConstructor;
+import org.apache.http.util.Asserts;
+import org.hibernate.service.spi.ServiceException;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import ru.starokozhev.SocialManager.config.UserDetailsImp;
 import ru.starokozhev.SocialManager.dto.filter.UserFilter;
 import ru.starokozhev.SocialManager.dto.UserWrapper;
 import ru.starokozhev.SocialManager.entity.User;
@@ -92,6 +99,36 @@ public class UserService {
     public List<UserWrapper> list(UserFilter filter) {
         //TODO specifications
         return null;
+    }
+
+    public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
+        User user = userRepository.findUserByEmailIgnoreCaseOrLoginIgnoreCase(login, login);
+
+        if (user == null)
+            throw new UsernameNotFoundException(String.format("Пользователь с логином %s не найден", login));
+
+        return new UserDetailsImp(new UserWrapper(user), user.getPassword());
+    }
+
+    public User getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        if (authentication == null)
+            throw new ServiceException("Пользователь не авторизован");
+
+        UserDetailsImp userDetails = (UserDetailsImp) authentication.getPrincipal();
+        User user = userRepository.findUserById(userDetails.getUser().getId());
+
+        if (user == null)
+            throw new IllegalArgumentException("Пользователь не найден");
+
+        return user;
+    }
+
+    public void updateLastTimeAuth(Long id) {
+        User user = userRepository.findUserById(id);
+        user.setDateLastAuth(LocalDateTime.now());
+        userRepository.save(user);
     }
 
 }

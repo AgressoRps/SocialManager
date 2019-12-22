@@ -12,7 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-@Configuration
+/*@Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -78,7 +78,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutUrl("/logout")
                 .permitAll() // разрешаем делать логаут всем
                 .invalidateHttpSession(true); // делаем не валидной текущую сессию*/
-    }
+    /*}
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -91,3 +91,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 }
+*/

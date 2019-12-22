@@ -13,6 +13,7 @@ import ru.starokozhev.SocialManager.repository.UserRepository;
 
 import java.util.Collections;
 
+/*
 @Component
 @RequiredArgsConstructor
 public class CustomAuthenticationProvider implements org.springframework.security.authentication.AuthenticationProvider {
@@ -52,3 +53,4 @@ public class CustomAuthenticationProvider implements org.springframework.securit
     }
 
 }
+*/

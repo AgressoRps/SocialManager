@@ -47,6 +47,10 @@ public class UserWrapper {
     @JsonView(Views.AccessCard.class)
     private LocalDateTime dateLastOperation;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.mm.yyyy HH:mm")
+    @JsonView(Views.AccessCard.class)
+    private LocalDateTime dateClose;
+
     @JsonView(Views.AccessCard.class)
     private Role role;
 
@@ -63,6 +67,7 @@ public class UserWrapper {
             name = user.getName();
             login = user.getLogin();
             email = user.getEmail();
+            dateClose = user.getDateClose();
             //password = user.getPassword();
             dateRegister = user.getDateRegister();
             dateLastAuth = user.getDateLastAuth();

@@ -11,7 +11,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-
+/*
 public class MySavedRequestAwareAuthenticationSuccessHandler extends SimpleUrlAuthenticationSuccessHandler {
 
     private RequestCache requestCache = new HttpSessionRequestCache();
@@ -46,4 +46,4 @@ public class MySavedRequestAwareAuthenticationSuccessHandler extends SimpleUrlAu
         this.requestCache = requestCache;
     }
 
-}
+}*/

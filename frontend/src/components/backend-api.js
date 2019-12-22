@@ -17,7 +17,7 @@ export default {
     createUser(firstName, lastName) {
         return AXIOS.post(`/user/` + firstName + '/' + lastName);
     },
-    auth(user, password) {
+    /*auth(user, password) {
         var data = { username : user, password : password };
         return axios({
             method: 'post',
@@ -33,6 +33,10 @@ export default {
             }
         })
         //return AXIOS.post(`/auth`,  { 'username': user, 'password': password });
+    },*/
+    auth(user, password) {
+        var data = { login : user, password : password };
+        return AXIOS.post(`/api/jwt/auth`, data);
     },
 }
 
