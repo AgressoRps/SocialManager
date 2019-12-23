@@ -34,7 +34,13 @@ export default {
   },
   methods: {
     callAuth() {
-      this.errors = [];
+        this.$store.dispatch('user/AUTH_REQUEST', { login: this.user, password: this.password }).then(() => {
+            window.location.replace('/');
+          }).catch((error) => {
+            console.log("СЛУЧИЛАСЬ БЕДА " + error);
+            //this.error = this.$_.get(error, 'message');
+          });
+      /*this.errors = [];
       this.$store.dispatch("auth", { user: this.user, password: this.password})
         .then(() => {
           this.$router.push('/Protected')
@@ -43,7 +49,7 @@ export default {
           this.loginError = true;
           this.errors.push(error);
           this.error = true
-        })
+        })*/
     }
   }
 }
