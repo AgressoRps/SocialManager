@@ -1,5 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex'
+import axios from 'axios'
 import api from '../../components/backend-api'
 
 const localVue = new Vue();
@@ -18,11 +19,15 @@ const actions = {
   AUTH_REQUEST: ({ commit }, {login, password}) => new Promise((resolve, reject) => {
    api.auth(login, password)
       .then((resp) => {
+        Vue.prototype.$http = axios;
         const token = resp.data.token;
         localStorage.setItem('user-token', token);
         commit('SET_TOKEN', token);
 
         const auth = `Bearer ${token}`;
+        if (auth) {
+          Vue.prototype.$http.defaults.headers.common['Authorization'] = auth
+        }
         //api.defaults.headers.common.Authorization = auth;
 
         resolve(resp);
