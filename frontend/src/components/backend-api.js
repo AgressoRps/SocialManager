@@ -38,6 +38,10 @@ export default {
         var data = { login : user, password : password };
         return AXIOS.post(`/api/jwt/auth`, data);
     },
+
+    getUserf() {
+        return AXIOS.get(`/user/` + 1);
+    }
 }
 
 

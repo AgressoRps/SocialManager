@@ -2,7 +2,7 @@
   <div id="app">
     <div id="nav">
       <router-link to="/">Главная страница</router-link> |
-      <router-link :to="/member/">Current User</router-link> |
+      <router-link to="/member/1">Current User</router-link> |
       <router-link to="/auth">Вход</router-link> |
     </div>
     <router-view :hellomsg="msg"></router-view>
