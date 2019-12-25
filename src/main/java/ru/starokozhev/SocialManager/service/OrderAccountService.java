@@ -2,10 +2,12 @@ package ru.starokozhev.SocialManager.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.starokozhev.SocialManager.dto.OrderWrapper;
 import ru.starokozhev.SocialManager.dto.filter.OrderAccountFilter;
 import ru.starokozhev.SocialManager.dto.OrderAccountWrapper;
 import ru.starokozhev.SocialManager.entity.OrderAccount;
 import ru.starokozhev.SocialManager.repository.OrderAccountRepository;
+import ru.starokozhev.SocialManager.service.registrator.InstagramRegisterService;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,7 +16,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderAccountService {
 
-    private OrderAccountRepository orderAccountRepository;
+    private final OrderAccountRepository orderAccountRepository;
+    private final InstagramRegisterService instagramRegisterService;
 
     //TODO provide order to final, use after transactions for accounts (maybe)
 
@@ -41,6 +44,20 @@ public class OrderAccountService {
         wrapper.fromWrapper(orderAccount);
 
         return new OrderAccountWrapper(orderAccountRepository.save(orderAccount));
+    }
+
+    public OrderAccountWrapper register(OrderWrapper wrapper) {
+        switch (wrapper.getType()) {
+            case RAMBLER:
+                break;
+            case INSTAGRAM:
+                instagramRegisterService.register(1L);
+                break;
+            default:
+                break;
+        }
+
+        return null; //TODO
     }
 
     public OrderAccountWrapper get(Long id) {

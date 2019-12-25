@@ -36,6 +36,10 @@ dependencies {
 	//compile 'org.hibernate:hibernate-java8'
 	//compile 'org.hibernate:hibernate-validator'
 	//compile 'org.hibernate:hibernate-envers'
+
+	compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.2.2'
+
+
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	//runtimeOnly 'com.h2database:h2'

@@ -3,6 +3,7 @@ package ru.starokozhev.SocialManager.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.starokozhev.SocialManager.dto.OrderAccountWrapper;
+import ru.starokozhev.SocialManager.dto.OrderWrapper;
 import ru.starokozhev.SocialManager.dto.filter.OrderAccountFilter;
 import ru.starokozhev.SocialManager.service.OrderAccountService;
 
@@ -18,6 +19,11 @@ public class OrderAccountController {
     @PostMapping
     public OrderAccountWrapper add(OrderAccountWrapper wrapper) {
         return orderAccountService.add(wrapper);
+    }
+
+    @PostMapping
+    public OrderAccountWrapper register(OrderWrapper wrapper) {
+        return orderAccountService.register(wrapper);
     }
 
     @PatchMapping
