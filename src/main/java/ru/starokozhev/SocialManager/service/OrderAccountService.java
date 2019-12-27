@@ -1,6 +1,7 @@
 package ru.starokozhev.SocialManager.service;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import ru.starokozhev.SocialManager.dto.OrderWrapper;
 import ru.starokozhev.SocialManager.dto.filter.OrderAccountFilter;
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
+@Log4j2
 @RequiredArgsConstructor
 public class OrderAccountService {
 
@@ -47,7 +49,9 @@ public class OrderAccountService {
     }
 
     public OrderAccountWrapper register(OrderWrapper wrapper) {
-        switch (wrapper.getType()) {
+
+
+        /*switch (wrapper.getType()) {
             case RAMBLER:
                 break;
             case INSTAGRAM:
@@ -55,9 +59,13 @@ public class OrderAccountService {
                 break;
             default:
                 break;
-        }
+        }*/
 
         return null; //TODO
+    }
+
+    public void temporaryMailFromBot(String temporaryMail) {
+        log.info("TEMPORARY MAIL {}", temporaryMail);
     }
 
     public OrderAccountWrapper get(Long id) {

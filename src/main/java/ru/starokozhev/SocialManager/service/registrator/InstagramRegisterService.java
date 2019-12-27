@@ -26,7 +26,7 @@ public class InstagramRegisterService implements IRegister {
 
     private String TEMPORARY_MAIL_URL = "https://privatix-temp-mail-v1.p.rapidapi.com/request/mail/id/7DBC340D48CB5C59C5E159E3FD9D5A20/";
 
-    private final RestTemplate restTemplate;
+    //private final RestTemplate restTemplate;
 
     @SneakyThrows
     @Override

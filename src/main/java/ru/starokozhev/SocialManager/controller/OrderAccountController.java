@@ -21,7 +21,7 @@ public class OrderAccountController {
         return orderAccountService.add(wrapper);
     }
 
-    @PostMapping
+    @PostMapping("/register")
     public OrderAccountWrapper register(OrderWrapper wrapper) {
         return orderAccountService.register(wrapper);
     }
