@@ -8,6 +8,7 @@ import ru.starokozhev.SocialManager.dto.filter.OrderAccountFilter;
 import ru.starokozhev.SocialManager.dto.OrderAccountWrapper;
 import ru.starokozhev.SocialManager.entity.OrderAccount;
 import ru.starokozhev.SocialManager.repository.OrderAccountRepository;
+import ru.starokozhev.SocialManager.service.mail.TemporaryMailService;
 import ru.starokozhev.SocialManager.service.registrator.InstagramRegisterService;
 
 import java.time.LocalDateTime;
@@ -20,6 +21,7 @@ public class OrderAccountService {
 
     private final OrderAccountRepository orderAccountRepository;
     private final InstagramRegisterService instagramRegisterService;
+    private final TemporaryMailService temporaryMailService;
 
     //TODO provide order to final, use after transactions for accounts (maybe)
 
@@ -49,7 +51,7 @@ public class OrderAccountService {
     }
 
     public OrderAccountWrapper register(OrderWrapper wrapper) {
-
+        temporaryMailService.getTemporaryMail();
 
         /*switch (wrapper.getType()) {
             case RAMBLER:

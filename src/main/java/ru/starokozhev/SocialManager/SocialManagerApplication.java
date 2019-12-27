@@ -1,5 +1,10 @@
 package ru.starokozhev.SocialManager;
 
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeDriverService;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -37,6 +42,13 @@ public class SocialManagerApplication {
 		} catch (TelegramApiException e) {
 			e.printStackTrace();
 		}
+	}
+
+	@Bean
+	public WebDriver getWebDriver() {
+		//TODO to yaml
+		System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
+		return new ChromeDriver();
 	}
 
 }
