@@ -44,11 +44,11 @@ public class SocialManagerApplication {
 		}
 	}
 
-	@Bean
+	/*@Bean
 	public WebDriver getWebDriver() {
 		//TODO to yaml
 		System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
 		return new ChromeDriver();
-	}
+	}*/
 
 }

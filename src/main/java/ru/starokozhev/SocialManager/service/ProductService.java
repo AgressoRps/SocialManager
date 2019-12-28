@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.starokozhev.SocialManager.dto.filter.AccountFilter;
 import ru.starokozhev.SocialManager.dto.ProductWrapper;
 import ru.starokozhev.SocialManager.entity.Product;
-import ru.starokozhev.SocialManager.repository.AccountRepository;
+import ru.starokozhev.SocialManager.repository.ProductRepository;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
@@ -15,19 +15,19 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProductService {
 
-    private final AccountRepository accountRepository;
+    private final ProductRepository productRepository;
 
     @Transactional
     public ProductWrapper add(ProductWrapper wrapper) {
         Product product = new Product();
         wrapper.fromWrapper(product);
 
-        return new ProductWrapper(accountRepository.save(product));
+        return new ProductWrapper(productRepository.save(product));
     }
 
     @Transactional
     public ProductWrapper edit(ProductWrapper wrapper) {
-        Product product = accountRepository.findAccountById(wrapper.getId());
+        Product product = productRepository.findProductById(wrapper.getId());
 
         //TODO выводить id аккаунта, который ищем
         if (product == null)
@@ -35,11 +35,11 @@ public class ProductService {
 
         wrapper.fromWrapper(product);
 
-        return new ProductWrapper(accountRepository.save(product));
+        return new ProductWrapper(productRepository.save(product));
     }
 
     public ProductWrapper get(Long id) {
-        Product product = accountRepository.findAccountById(id);
+        Product product = productRepository.findProductById(id);
 
         //TODO выводить id аккаунта, который ищем
         if (product == null)
@@ -54,14 +54,14 @@ public class ProductService {
     }
 
     public void delete(Long id) {
-        Product product = accountRepository.findAccountById(id);
+        Product product = productRepository.findProductById(id);
 
         //TODO выводить id аккаунта, который ищем
         if (product == null)
             throw new IllegalArgumentException("Аккаунт не найден");
 
         product.setDateClose(LocalDateTime.now());
-        accountRepository.save(product);
+        productRepository.save(product);
     }
 
 }

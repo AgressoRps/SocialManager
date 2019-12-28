@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 import ru.starokozhev.SocialManager.dto.filter.ProxyAccountFilter;
 import ru.starokozhev.SocialManager.dto.ProxyAccountWrapper;
 import ru.starokozhev.SocialManager.entity.ProxyProduct;
-import ru.starokozhev.SocialManager.repository.ProxyAccountRepository;
+import ru.starokozhev.SocialManager.repository.ProxyProductRepository;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -14,7 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ProxyProductService {
 
-    private ProxyAccountRepository proxyAccountRepository;
+    private ProxyProductRepository proxyProductRepository;
 
     public ProxyAccountWrapper add(ProxyAccountWrapper wrapper) {
         ProxyProduct proxyProduct = new ProxyProduct();
@@ -25,11 +25,11 @@ public class ProxyProductService {
         //TODO set dateCreate
         //todo update dateLastUse
 
-        return new ProxyAccountWrapper(proxyAccountRepository.save(proxyProduct));
+        return new ProxyAccountWrapper(proxyProductRepository.save(proxyProduct));
     }
 
     public ProxyAccountWrapper edit(ProxyAccountWrapper wrapper) {
-        ProxyProduct proxyProduct = proxyAccountRepository.findProxyAccountById(wrapper.getId());
+        ProxyProduct proxyProduct = proxyProductRepository.findProxyProductById(wrapper.getId());
 
         //TODO add proxy id to message
         if (proxyProduct == null)
@@ -39,11 +39,11 @@ public class ProxyProductService {
 
         //todo update dateLastUse
 
-        return new ProxyAccountWrapper(proxyAccountRepository.save(proxyProduct));
+        return new ProxyAccountWrapper(proxyProductRepository.save(proxyProduct));
     }
 
     public ProxyAccountWrapper get(Long id) {
-        ProxyProduct proxyProduct = proxyAccountRepository.findProxyAccountById(id);
+        ProxyProduct proxyProduct = proxyProductRepository.findProxyProductById(id);
 
         //TODO add proxy id to message
         if (proxyProduct == null)
@@ -58,14 +58,14 @@ public class ProxyProductService {
     }
 
     public void delete(Long id) {
-        ProxyProduct proxyProduct = proxyAccountRepository.findProxyAccountById(id);
+        ProxyProduct proxyProduct = proxyProductRepository.findProxyProductById(id);
 
         //TODO add proxy id to message
         if (proxyProduct == null)
             throw new IllegalArgumentException("Прокси не найден");
 
         proxyProduct.setDateClose(LocalDateTime.now());
-        proxyAccountRepository.save(proxyProduct);
+        proxyProductRepository.save(proxyProduct);
     }
 
 }

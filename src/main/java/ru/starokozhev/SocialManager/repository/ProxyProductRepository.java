@@ -9,15 +9,15 @@ import ru.starokozhev.SocialManager.enums.ProxyState;
 
 import java.util.List;
 
-public interface ProxyAccountRepository extends JpaRepository<ProxyProduct, Long>,
+public interface ProxyProductRepository extends JpaRepository<ProxyProduct, Long>,
         JpaSpecificationExecutor<ProxyProduct> {
 
-    List<ProxyProduct> findAllByOrderAccount(OrderProduct orderProduct);
+    List<ProxyProduct> findAllByOrderProduct(OrderProduct orderProduct);
 
     List<ProxyProduct> findAllByProxyState(ProxyState proxyState);
 
     List<ProxyProduct> findAllByProxyHttpType(ProxyHttpType proxyHttpType);
 
-    ProxyProduct findProxyAccountById(Long id);
+    ProxyProduct findProxyProductById(Long id);
 
 }

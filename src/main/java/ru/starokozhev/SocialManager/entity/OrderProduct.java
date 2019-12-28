@@ -18,12 +18,12 @@ public class OrderProduct {
     @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_account",
-            joinColumns = @JoinColumn(name = "id_order_account"),
-            inverseJoinColumns = @JoinColumn(name = "id_account")
+            joinColumns = @JoinColumn(name = "id_order_product"),
+            inverseJoinColumns = @JoinColumn(name = "id_product")
     )
     private Set<Product> products;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderAccount", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderProduct", fetch = FetchType.LAZY)
     private Set<ProxyProduct> proxies;
 
     @ManyToOne(fetch = FetchType.LAZY)

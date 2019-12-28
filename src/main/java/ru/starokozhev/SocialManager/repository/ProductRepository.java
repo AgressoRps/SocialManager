@@ -8,13 +8,13 @@ import ru.starokozhev.SocialManager.enums.ProductType;
 
 import java.util.List;
 
-public interface AccountRepository extends JpaRepository<Product, Long>,
+public interface ProductRepository extends JpaRepository<Product, Long>,
         JpaSpecificationExecutor<Product> {
 
-    List<Product> findAccountByName(ProductName name);
+    List<Product> findProductByName(ProductName name);
 
-    List<Product> findAccountByType(ProductType type);
+    List<Product> findProductByType(ProductType type);
 
-    Product findAccountById(Long id);
+    Product findProductById(Long id);
 
 }

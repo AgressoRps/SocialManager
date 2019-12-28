@@ -8,9 +8,10 @@ import ru.starokozhev.SocialManager.dto.TemporaryMailWrapper;
 import ru.starokozhev.SocialManager.dto.filter.OrderAccountFilter;
 import ru.starokozhev.SocialManager.dto.OrderProductWrapper;
 import ru.starokozhev.SocialManager.entity.OrderProduct;
-import ru.starokozhev.SocialManager.repository.OrderAccountRepository;
+import ru.starokozhev.SocialManager.repository.OrderProductRepository;
 import ru.starokozhev.SocialManager.service.mail.TemporaryMailService;
 import ru.starokozhev.SocialManager.service.registrator.InstagramService;
+import ru.starokozhev.SocialManager.service.selenium.SeleniumService;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -20,9 +21,10 @@ import java.util.List;
 @RequiredArgsConstructor
 public class OrderProductService {
 
-    private final OrderAccountRepository orderAccountRepository;
+    private final OrderProductRepository orderProductRepository;
     private final InstagramService instagramService;
     private final TemporaryMailService temporaryMailService;
+    private final SeleniumService seleniumService;
 
     //TODO provide order to final, use after transactions for accounts (maybe)
 
@@ -36,11 +38,11 @@ public class OrderProductService {
         //TODO setDatePayed когда опалтит
         //TODO setIsPayed когда оплатит
 
-        return new OrderProductWrapper(orderAccountRepository.save(orderProduct));
+        return new OrderProductWrapper(orderProductRepository.save(orderProduct));
     }
 
     public OrderProductWrapper edit(OrderProductWrapper wrapper) {
-        OrderProduct orderProduct = orderAccountRepository.findOrderAccountById(wrapper.getId());
+        OrderProduct orderProduct = orderProductRepository.findOrderProductById(wrapper.getId());
 
         //TODO add id order to message
         if (orderProduct == null)
@@ -48,12 +50,21 @@ public class OrderProductService {
 
         wrapper.fromWrapper(orderProduct);
 
-        return new OrderProductWrapper(orderAccountRepository.save(orderProduct));
+        return new OrderProductWrapper(orderProductRepository.save(orderProduct));
     }
 
     public OrderProductWrapper register(OrderWrapper wrapper) {
-        TemporaryMailWrapper temporaryMail = temporaryMailService.getTemporaryMail();
-        instagramService.registerAccount(temporaryMail);
+
+        SeleniumService.createAndStartService();
+        seleniumService.createDriver();
+        TemporaryMailWrapper temporaryMail = temporaryMailService.getTemporaryMail(seleniumService.getDriver());
+        instagramService.registerAccount(temporaryMail, seleniumService.getDriver());
+
+        /*DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+        capabilities.setCapability("chrome.switches", Arrays.asList("--proxy-server=http://user:password@proxy.com:8080"));
+        WebDriver driver = new ChromeDriverService.Builder();*/
+        //TemporaryMailWrapper temporaryMail = temporaryMailService.getTemporaryMail();
+        //instagramService.registerAccount(temporaryMail);
 
         /*switch (wrapper.getType()) {
             case RAMBLER:
@@ -73,7 +84,7 @@ public class OrderProductService {
     }
 
     public OrderProductWrapper get(Long id) {
-        OrderProduct orderProduct = orderAccountRepository.findOrderAccountById(id);
+        OrderProduct orderProduct = orderProductRepository.findOrderProductById(id);
 
         //TODO add id order to message
         if (orderProduct == null)
@@ -88,14 +99,14 @@ public class OrderProductService {
     }
 
     public void delete(Long id) {
-        OrderProduct orderProduct = orderAccountRepository.findOrderAccountById(id);
+        OrderProduct orderProduct = orderProductRepository.findOrderProductById(id);
 
         //TODO add id order to message
         if (orderProduct == null)
             throw new IllegalArgumentException("Заказ не найден");
 
         orderProduct.setDateClose(LocalDateTime.now());
-        orderAccountRepository.save(orderProduct);
+        orderProductRepository.save(orderProduct);
     }
 
 }
