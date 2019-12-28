@@ -4,12 +4,13 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.stereotype.Service;
 import ru.starokozhev.SocialManager.dto.OrderWrapper;
+import ru.starokozhev.SocialManager.dto.TemporaryMailWrapper;
 import ru.starokozhev.SocialManager.dto.filter.OrderAccountFilter;
-import ru.starokozhev.SocialManager.dto.OrderAccountWrapper;
-import ru.starokozhev.SocialManager.entity.OrderAccount;
+import ru.starokozhev.SocialManager.dto.OrderProductWrapper;
+import ru.starokozhev.SocialManager.entity.OrderProduct;
 import ru.starokozhev.SocialManager.repository.OrderAccountRepository;
 import ru.starokozhev.SocialManager.service.mail.TemporaryMailService;
-import ru.starokozhev.SocialManager.service.registrator.InstagramRegisterService;
+import ru.starokozhev.SocialManager.service.registrator.InstagramService;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,17 +18,17 @@ import java.util.List;
 @Service
 @Log4j2
 @RequiredArgsConstructor
-public class OrderAccountService {
+public class OrderProductService {
 
     private final OrderAccountRepository orderAccountRepository;
-    private final InstagramRegisterService instagramRegisterService;
+    private final InstagramService instagramService;
     private final TemporaryMailService temporaryMailService;
 
     //TODO provide order to final, use after transactions for accounts (maybe)
 
-    public OrderAccountWrapper add(OrderAccountWrapper wrapper) {
-        OrderAccount orderAccount = new OrderAccount();
-        wrapper.fromWrapper(orderAccount);
+    public OrderProductWrapper add(OrderProductWrapper wrapper) {
+        OrderProduct orderProduct = new OrderProduct();
+        wrapper.fromWrapper(orderProduct);
 
         //TODO accounts
         //TODO setCurrentUser
@@ -35,23 +36,24 @@ public class OrderAccountService {
         //TODO setDatePayed когда опалтит
         //TODO setIsPayed когда оплатит
 
-        return new OrderAccountWrapper(orderAccountRepository.save(orderAccount));
+        return new OrderProductWrapper(orderAccountRepository.save(orderProduct));
     }
 
-    public OrderAccountWrapper edit(OrderAccountWrapper wrapper) {
-        OrderAccount orderAccount = orderAccountRepository.findOrderAccountById(wrapper.getId());
+    public OrderProductWrapper edit(OrderProductWrapper wrapper) {
+        OrderProduct orderProduct = orderAccountRepository.findOrderAccountById(wrapper.getId());
 
         //TODO add id order to message
-        if (orderAccount == null)
+        if (orderProduct == null)
             throw new IllegalArgumentException("Заказ не найден");
 
-        wrapper.fromWrapper(orderAccount);
+        wrapper.fromWrapper(orderProduct);
 
-        return new OrderAccountWrapper(orderAccountRepository.save(orderAccount));
+        return new OrderProductWrapper(orderAccountRepository.save(orderProduct));
     }
 
-    public OrderAccountWrapper register(OrderWrapper wrapper) {
-        temporaryMailService.getTemporaryMail();
+    public OrderProductWrapper register(OrderWrapper wrapper) {
+        TemporaryMailWrapper temporaryMail = temporaryMailService.getTemporaryMail();
+        instagramService.registerAccount(temporaryMail);
 
         /*switch (wrapper.getType()) {
             case RAMBLER:
@@ -70,30 +72,30 @@ public class OrderAccountService {
         log.info("TEMPORARY MAIL {}", temporaryMail);
     }
 
-    public OrderAccountWrapper get(Long id) {
-        OrderAccount orderAccount = orderAccountRepository.findOrderAccountById(id);
+    public OrderProductWrapper get(Long id) {
+        OrderProduct orderProduct = orderAccountRepository.findOrderAccountById(id);
 
         //TODO add id order to message
-        if (orderAccount == null)
+        if (orderProduct == null)
             throw new IllegalArgumentException("Заказ не найден");
 
-        return new OrderAccountWrapper(orderAccount);
+        return new OrderProductWrapper(orderProduct);
     }
 
-    public List<OrderAccountWrapper> list(OrderAccountFilter filter) {
+    public List<OrderProductWrapper> list(OrderAccountFilter filter) {
         //TODO build specification
         return null;
     }
 
     public void delete(Long id) {
-        OrderAccount orderAccount = orderAccountRepository.findOrderAccountById(id);
+        OrderProduct orderProduct = orderAccountRepository.findOrderAccountById(id);
 
         //TODO add id order to message
-        if (orderAccount == null)
+        if (orderProduct == null)
             throw new IllegalArgumentException("Заказ не найден");
 
-        orderAccount.setDateClose(LocalDateTime.now());
-        orderAccountRepository.save(orderAccount);
+        orderProduct.setDateClose(LocalDateTime.now());
+        orderAccountRepository.save(orderProduct);
     }
 
 }

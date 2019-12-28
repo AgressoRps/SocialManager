@@ -1,26 +1,26 @@
 package ru.starokozhev.SocialManager.entity;
 
 import lombok.Data;
-import ru.starokozhev.SocialManager.enums.AccountName;
-import ru.starokozhev.SocialManager.enums.AccountType;
+import ru.starokozhev.SocialManager.enums.ProductName;
+import ru.starokozhev.SocialManager.enums.ProductType;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "account")
+@Table(name = "product")
 @Data
-public class Account {
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Enumerated(value = EnumType.STRING)
-    private AccountName name;
+    private ProductName name;
 
     @Enumerated(value = EnumType.STRING)
-    private AccountType type;
+    private ProductType type;
 
     private Double price;
 

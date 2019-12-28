@@ -7,9 +7,9 @@ import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
-@Table(name = "order_account")
+@Table(name = "order_product")
 @Data
-public class OrderAccount {
+public class OrderProduct {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,10 +21,10 @@ public class OrderAccount {
             joinColumns = @JoinColumn(name = "id_order_account"),
             inverseJoinColumns = @JoinColumn(name = "id_account")
     )
-    private Set<Account> accounts;
+    private Set<Product> products;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderAccount", fetch = FetchType.LAZY)
-    private Set<ProxyAccount> proxies;
+    private Set<ProxyProduct> proxies;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_user")

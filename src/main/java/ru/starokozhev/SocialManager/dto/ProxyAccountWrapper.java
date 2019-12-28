@@ -3,7 +3,7 @@ package ru.starokozhev.SocialManager.dto;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import ru.starokozhev.SocialManager.entity.ProxyAccount;
+import ru.starokozhev.SocialManager.entity.ProxyProduct;
 import ru.starokozhev.SocialManager.enums.ProxyHttpType;
 import ru.starokozhev.SocialManager.enums.ProxyState;
 
@@ -21,7 +21,7 @@ public class ProxyAccountWrapper {
 
     private String password;
 
-    private OrderAccountWrapper orderAccount;
+    private OrderProductWrapper orderAccount;
 
     private ProxyState proxyState;
 
@@ -33,31 +33,31 @@ public class ProxyAccountWrapper {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.mm.yyyy HH:mm")
     private LocalDateTime dateCreate;
 
-    public ProxyAccountWrapper(ProxyAccount proxyAccount) {
-        toWrapper(proxyAccount);
+    public ProxyAccountWrapper(ProxyProduct proxyProduct) {
+        toWrapper(proxyProduct);
     }
 
-    private void toWrapper(ProxyAccount proxyAccount) {
-        if (proxyAccount != null) {
-            id = proxyAccount.getId();
-            url = proxyAccount.getUrl();
-            login = proxyAccount.getLogin();
-            password = proxyAccount.getPassword();
-            orderAccount = new OrderAccountWrapper(proxyAccount.getOrderAccount());
-            proxyState = proxyAccount.getProxyState();
-            proxyHttpType = proxyAccount.getProxyHttpType();
-            dateLastUse = proxyAccount.getDateLastUse();
-            dateCreate = proxyAccount.getDateCreate();
+    private void toWrapper(ProxyProduct proxyProduct) {
+        if (proxyProduct != null) {
+            id = proxyProduct.getId();
+            url = proxyProduct.getUrl();
+            login = proxyProduct.getLogin();
+            password = proxyProduct.getPassword();
+            orderAccount = new OrderProductWrapper(proxyProduct.getOrderProduct());
+            proxyState = proxyProduct.getProxyState();
+            proxyHttpType = proxyProduct.getProxyHttpType();
+            dateLastUse = proxyProduct.getDateLastUse();
+            dateCreate = proxyProduct.getDateCreate();
         }
     }
 
-    public void fromWrapper(ProxyAccount proxyAccount) {
-        if (proxyAccount != null) {
-            proxyAccount.setUrl(url);
-            proxyAccount.setLogin(login);
-            proxyAccount.setPassword(password);
-            proxyAccount.setProxyState(proxyState);
-            proxyAccount.setProxyHttpType(proxyHttpType);
+    public void fromWrapper(ProxyProduct proxyProduct) {
+        if (proxyProduct != null) {
+            proxyProduct.setUrl(url);
+            proxyProduct.setLogin(login);
+            proxyProduct.setPassword(password);
+            proxyProduct.setProxyState(proxyState);
+            proxyProduct.setProxyHttpType(proxyHttpType);
         }
     }
 

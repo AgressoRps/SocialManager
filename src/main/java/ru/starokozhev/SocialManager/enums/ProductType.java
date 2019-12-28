@@ -1,12 +1,12 @@
 package ru.starokozhev.SocialManager.enums;
 
-public enum AccountName {
-    RAMBLER("Рамблер"),
-    INSTAGRAM("Инстаграм");
+public enum ProductType {
+    SOCIAL_NETWORK("Социальная сеть"),
+    EMAIL("Электронная почта");
 
     private String friendlyName;
 
-    AccountName(String friendlyName) {
+    ProductType(String friendlyName) {
         this.friendlyName = friendlyName;
     }
 

@@ -8,9 +8,9 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "proxy_account")
+@Table(name = "proxy_product")
 @Data
-public class ProxyAccount {
+public class ProxyProduct {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,7 +24,7 @@ public class ProxyAccount {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_order_account")
-    private OrderAccount orderAccount;
+    private OrderProduct orderProduct;
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "proxy_state")

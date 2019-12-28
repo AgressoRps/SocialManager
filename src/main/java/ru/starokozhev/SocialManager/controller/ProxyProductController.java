@@ -4,40 +4,40 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ru.starokozhev.SocialManager.dto.ProxyAccountWrapper;
 import ru.starokozhev.SocialManager.dto.filter.ProxyAccountFilter;
-import ru.starokozhev.SocialManager.service.ProxyAccountService;
+import ru.starokozhev.SocialManager.service.ProxyProductService;
 
 import java.util.List;
 
 @RestController
 @RequestMapping("proxy")
 @RequiredArgsConstructor
-public class ProxyAccountController {
+public class ProxyProductController {
 
-    private final ProxyAccountService proxyAccountService;
+    private final ProxyProductService proxyProductService;
 
     @PostMapping
     public ProxyAccountWrapper add(ProxyAccountWrapper wrapper) {
-        return proxyAccountService.add(wrapper);
+        return proxyProductService.add(wrapper);
     }
 
     @PatchMapping
     public ProxyAccountWrapper edit(ProxyAccountWrapper wrapper) {
-        return proxyAccountService.edit(wrapper);
+        return proxyProductService.edit(wrapper);
     }
 
     @GetMapping("{id}")
     public ProxyAccountWrapper get(@PathVariable(name = "id") Long id) {
-        return proxyAccountService.get(id);
+        return proxyProductService.get(id);
     }
 
     @DeleteMapping("{id}")
     public void delete(@PathVariable(name = "name") Long id) {
-        proxyAccountService.delete(id);
+        proxyProductService.delete(id);
     }
 
     @GetMapping
     public List<ProxyAccountWrapper> list(ProxyAccountFilter filter) {
-        return proxyAccountService.list(filter);
+        return proxyProductService.list(filter);
     }
 
 }

@@ -3,8 +3,8 @@ package ru.starokozhev.SocialManager.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.starokozhev.SocialManager.dto.filter.AccountFilter;
-import ru.starokozhev.SocialManager.dto.AccountWrapper;
-import ru.starokozhev.SocialManager.entity.Account;
+import ru.starokozhev.SocialManager.dto.ProductWrapper;
+import ru.starokozhev.SocialManager.entity.Product;
 import ru.starokozhev.SocialManager.repository.AccountRepository;
 
 import javax.transaction.Transactional;
@@ -13,55 +13,55 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class AccountService {
+public class ProductService {
 
     private final AccountRepository accountRepository;
 
     @Transactional
-    public AccountWrapper add(AccountWrapper wrapper) {
-        Account account = new Account();
-        wrapper.fromWrapper(account);
+    public ProductWrapper add(ProductWrapper wrapper) {
+        Product product = new Product();
+        wrapper.fromWrapper(product);
 
-        return new AccountWrapper(accountRepository.save(account));
+        return new ProductWrapper(accountRepository.save(product));
     }
 
     @Transactional
-    public AccountWrapper edit(AccountWrapper wrapper) {
-        Account account = accountRepository.findAccountById(wrapper.getId());
+    public ProductWrapper edit(ProductWrapper wrapper) {
+        Product product = accountRepository.findAccountById(wrapper.getId());
 
         //TODO выводить id аккаунта, который ищем
-        if (account == null)
+        if (product == null)
             throw new IllegalArgumentException("Аккаунт не найден");
 
-        wrapper.fromWrapper(account);
+        wrapper.fromWrapper(product);
 
-        return new AccountWrapper(accountRepository.save(account));
+        return new ProductWrapper(accountRepository.save(product));
     }
 
-    public AccountWrapper get(Long id) {
-        Account account = accountRepository.findAccountById(id);
+    public ProductWrapper get(Long id) {
+        Product product = accountRepository.findAccountById(id);
 
         //TODO выводить id аккаунта, который ищем
-        if (account == null)
+        if (product == null)
             throw new IllegalArgumentException("Аккаунт не найден");
 
-        return new AccountWrapper(account);
+        return new ProductWrapper(product);
     }
 
-    public List<AccountWrapper> list(AccountFilter filter) {
+    public List<ProductWrapper> list(AccountFilter filter) {
         //TODO specifications
         return null;
     }
 
     public void delete(Long id) {
-        Account account = accountRepository.findAccountById(id);
+        Product product = accountRepository.findAccountById(id);
 
         //TODO выводить id аккаунта, который ищем
-        if (account == null)
+        if (product == null)
             throw new IllegalArgumentException("Аккаунт не найден");
 
-        account.setDateClose(LocalDateTime.now());
-        accountRepository.save(account);
+        product.setDateClose(LocalDateTime.now());
+        accountRepository.save(product);
     }
 
 }
