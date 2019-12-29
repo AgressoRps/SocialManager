@@ -9,6 +9,6 @@ import ru.starokozhev.SocialManager.enums.ProductName;
 public class OrderWrapper {
 
     private Long count;
-    private ProductName type;
+    private long product;
 
 }

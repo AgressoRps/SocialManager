@@ -1,5 +1,6 @@
 package ru.starokozhev.SocialManager;
 
+import lombok.RequiredArgsConstructor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
@@ -19,15 +20,20 @@ import org.telegram.telegrambots.ApiContextInitializer;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.starokozhev.SocialManager.service.bot.SocialManagerBot;
+import ru.starokozhev.SocialManager.service.selenium.SeleniumService;
 
 import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
 
 @SpringBootApplication
 @EnableAsync
 @EnableScheduling
 @EnableConfigurationProperties
 @EnableAutoConfiguration
+@RequiredArgsConstructor
 public class SocialManagerApplication {
+
+	private final SeleniumService seleniumService;
 
 	public static void main(String[] args) {
 		SpringApplication.run(SocialManagerApplication.class, args);
@@ -44,11 +50,10 @@ public class SocialManagerApplication {
 		}
 	}
 
-	/*@Bean
-	public WebDriver getWebDriver() {
-		//TODO to yaml
-		System.setProperty("webdriver.chrome.driver", "src/main/resources/chromedriver.exe");
-		return new ChromeDriver();
-	}*/
+	@PreDestroy
+	public void clearResources() {
+		SeleniumService.stopService();
+		seleniumService.quitDriver();
+	}
 
 }

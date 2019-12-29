@@ -2,7 +2,7 @@ package ru.starokozhev.SocialManager.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import ru.starokozhev.SocialManager.dto.ProxyAccountWrapper;
+import ru.starokozhev.SocialManager.dto.ProxyProductWrapper;
 import ru.starokozhev.SocialManager.dto.filter.ProxyAccountFilter;
 import ru.starokozhev.SocialManager.service.ProxyProductService;
 
@@ -16,17 +16,17 @@ public class ProxyProductController {
     private final ProxyProductService proxyProductService;
 
     @PostMapping
-    public ProxyAccountWrapper add(ProxyAccountWrapper wrapper) {
+    public ProxyProductWrapper add(ProxyProductWrapper wrapper) {
         return proxyProductService.add(wrapper);
     }
 
     @PatchMapping
-    public ProxyAccountWrapper edit(ProxyAccountWrapper wrapper) {
+    public ProxyProductWrapper edit(ProxyProductWrapper wrapper) {
         return proxyProductService.edit(wrapper);
     }
 
     @GetMapping("{id}")
-    public ProxyAccountWrapper get(@PathVariable(name = "id") Long id) {
+    public ProxyProductWrapper get(@PathVariable(name = "id") Long id) {
         return proxyProductService.get(id);
     }
 
@@ -36,7 +36,7 @@ public class ProxyProductController {
     }
 
     @GetMapping
-    public List<ProxyAccountWrapper> list(ProxyAccountFilter filter) {
+    public List<ProxyProductWrapper> list(ProxyAccountFilter filter) {
         return proxyProductService.list(filter);
     }
 

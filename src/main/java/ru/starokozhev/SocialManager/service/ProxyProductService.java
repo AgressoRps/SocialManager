@@ -3,7 +3,7 @@ package ru.starokozhev.SocialManager.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.starokozhev.SocialManager.dto.filter.ProxyAccountFilter;
-import ru.starokozhev.SocialManager.dto.ProxyAccountWrapper;
+import ru.starokozhev.SocialManager.dto.ProxyProductWrapper;
 import ru.starokozhev.SocialManager.entity.ProxyProduct;
 import ru.starokozhev.SocialManager.repository.ProxyProductRepository;
 
@@ -16,7 +16,7 @@ public class ProxyProductService {
 
     private ProxyProductRepository proxyProductRepository;
 
-    public ProxyAccountWrapper add(ProxyAccountWrapper wrapper) {
+    public ProxyProductWrapper add(ProxyProductWrapper wrapper) {
         ProxyProduct proxyProduct = new ProxyProduct();
         wrapper.fromWrapper(proxyProduct);
 
@@ -25,10 +25,10 @@ public class ProxyProductService {
         //TODO set dateCreate
         //todo update dateLastUse
 
-        return new ProxyAccountWrapper(proxyProductRepository.save(proxyProduct));
+        return new ProxyProductWrapper(proxyProductRepository.save(proxyProduct));
     }
 
-    public ProxyAccountWrapper edit(ProxyAccountWrapper wrapper) {
+    public ProxyProductWrapper edit(ProxyProductWrapper wrapper) {
         ProxyProduct proxyProduct = proxyProductRepository.findProxyProductById(wrapper.getId());
 
         //TODO add proxy id to message
@@ -39,20 +39,20 @@ public class ProxyProductService {
 
         //todo update dateLastUse
 
-        return new ProxyAccountWrapper(proxyProductRepository.save(proxyProduct));
+        return new ProxyProductWrapper(proxyProductRepository.save(proxyProduct));
     }
 
-    public ProxyAccountWrapper get(Long id) {
+    public ProxyProductWrapper get(Long id) {
         ProxyProduct proxyProduct = proxyProductRepository.findProxyProductById(id);
 
         //TODO add proxy id to message
         if (proxyProduct == null)
             throw new IllegalArgumentException("Прокси не найден");
 
-        return new ProxyAccountWrapper(proxyProduct);
+        return new ProxyProductWrapper(proxyProduct);
     }
 
-    public List<ProxyAccountWrapper> list(ProxyAccountFilter filter) {
+    public List<ProxyProductWrapper> list(ProxyAccountFilter filter) {
         //TODO build specification
         return null;
     }

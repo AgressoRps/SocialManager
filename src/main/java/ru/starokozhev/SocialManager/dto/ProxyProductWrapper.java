@@ -11,7 +11,7 @@ import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
-public class ProxyAccountWrapper {
+public class ProxyProductWrapper {
 
     private Long id;
 
@@ -21,7 +21,7 @@ public class ProxyAccountWrapper {
 
     private String password;
 
-    private OrderProductWrapper orderAccount;
+    private OrderProductWrapper orderProduct;
 
     private ProxyState proxyState;
 
@@ -33,7 +33,7 @@ public class ProxyAccountWrapper {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.mm.yyyy HH:mm")
     private LocalDateTime dateCreate;
 
-    public ProxyAccountWrapper(ProxyProduct proxyProduct) {
+    public ProxyProductWrapper(ProxyProduct proxyProduct) {
         toWrapper(proxyProduct);
     }
 
@@ -43,7 +43,7 @@ public class ProxyAccountWrapper {
             url = proxyProduct.getUrl();
             login = proxyProduct.getLogin();
             password = proxyProduct.getPassword();
-            orderAccount = new OrderProductWrapper(proxyProduct.getOrderProduct());
+            orderProduct = new OrderProductWrapper(proxyProduct.getOrderProduct());
             proxyState = proxyProduct.getProxyState();
             proxyHttpType = proxyProduct.getProxyHttpType();
             dateLastUse = proxyProduct.getDateLastUse();

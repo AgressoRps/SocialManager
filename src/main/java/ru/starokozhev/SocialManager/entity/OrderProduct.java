@@ -15,13 +15,12 @@ public class OrderProduct {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "user_account",
-            joinColumns = @JoinColumn(name = "id_order_product"),
-            inverseJoinColumns = @JoinColumn(name = "id_product")
-    )
-    private Set<Product> products;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_product")
+    private Product product;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderProduct", fetch = FetchType.LAZY)
+    private Set<Account> accounts;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "orderProduct", fetch = FetchType.LAZY)
     private Set<ProxyProduct> proxies;

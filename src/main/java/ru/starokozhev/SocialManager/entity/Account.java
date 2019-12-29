@@ -20,6 +20,10 @@ public class Account {
     @JoinColumn(name = "id_product")
     private Product product;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_product")
+    private OrderProduct orderProduct;
+
     private String login;
 
     private String password;

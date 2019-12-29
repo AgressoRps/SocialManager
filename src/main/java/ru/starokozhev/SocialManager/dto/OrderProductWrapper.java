@@ -15,9 +15,11 @@ public class OrderProductWrapper {
 
     private Long id;
 
-    private List<ProductWrapper> accounts;
+    private ProductWrapper product;
 
-    private List<ProxyAccountWrapper> proxies;
+    private List<AccountWrapper> accounts;
+
+    private List<ProxyProductWrapper> proxies;
 
     private UserWrapper user;
 
@@ -40,8 +42,9 @@ public class OrderProductWrapper {
     private void toWrapper(OrderProduct orderProduct) {
         if (orderProduct != null) {
             id = orderProduct.getId();
-            accounts = orderProduct.getProducts().stream().map(ProductWrapper::new).collect(Collectors.toList());
-            proxies = orderProduct.getProxies().stream().map(ProxyAccountWrapper::new).collect(Collectors.toList());
+            product = new ProductWrapper(orderProduct.getProduct());
+            accounts = orderProduct.getAccounts().stream().map(AccountWrapper::new).collect(Collectors.toList());
+            proxies = orderProduct.getProxies().stream().map(ProxyProductWrapper::new).collect(Collectors.toList());
             user = new UserWrapper(orderProduct.getUser());
             totalPrice = orderProduct.getTotalPrice();
             count = orderProduct.getCount();

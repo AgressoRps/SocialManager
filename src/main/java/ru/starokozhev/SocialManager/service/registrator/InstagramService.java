@@ -13,6 +13,7 @@ import ru.starokozhev.SocialManager.dto.TemporaryMailWrapper;
 import ru.starokozhev.SocialManager.entity.Account;
 import ru.starokozhev.SocialManager.entity.Product;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -36,7 +37,7 @@ public class InstagramService {
     }
 
     @SneakyThrows
-    public Product registerAccount(TemporaryMailWrapper wrapper, WebDriver driver) {
+    public Account registerAccount(TemporaryMailWrapper wrapper, WebDriver driver) {
         //Proxy proxy = proxyConfigService.configureCurrentProxy("test", "test", "test", "test");
 
         WebDriverWait wait = new WebDriverWait(driver, 30);
@@ -66,13 +67,20 @@ public class InstagramService {
                 }
             }
 
-            WebElement firstResult = wait.until(presenceOfElementLocated(By.cssSelector("h2 > span.email")));
+            //WebElement firstResult = wait.until(presenceOfElementLocated(By.cssSelector("h2 > span.email")));
+
+            synchronized (driver) {
+                driver.wait(10_000);
+            }
+
+            ArrayList<String> allTabs = new ArrayList<>(driver.getWindowHandles());
+            driver.switchTo().window(allTabs.get(0));
 
         } catch (Exception ex) {
             ex.printStackTrace();
         }
 
-        return null;
+        return account;
     }
 
     private String generateFullName() {
