@@ -65,8 +65,8 @@ public class OrderProductService {
 
     public OrderProductWrapper register(OrderWrapper wrapper) {
         OrderProduct orderProduct = new OrderProduct();
-        List<Account> registeredAccounts = new ArrayList<>();
-        List<ProxyProduct> usedProxies = new ArrayList<>();
+        //List<Account> registeredAccounts = new ArrayList<>();
+        //List<ProxyProduct> usedProxies = new ArrayList<>();
 
         for (int i = 0; i < wrapper.getCount(); i++) {
             try {
@@ -81,8 +81,9 @@ public class OrderProductService {
                 account.setProduct(productRepository.findProductById(wrapper.getProduct()));
                 account.setDateCreate(LocalDateTime.now());
 
-                registeredAccounts.add(account);
-                usedProxies.add(proxyProduct);
+
+                //registeredAccounts.add(account);
+                //usedProxies.add(proxyProduct);
             } catch (Exception ex) {
                 ex.printStackTrace();
             }
