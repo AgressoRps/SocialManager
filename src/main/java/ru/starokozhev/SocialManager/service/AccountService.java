@@ -13,20 +13,20 @@ import java.util.List;
 @RequiredArgsConstructor
 public class AccountService {
 
-    private final AccountRepository accountRepository;
+    //private final AccountRepository accountRepository;
 
     @Transactional
     public AccountWrapper add(AccountWrapper wrapper) {
-
+        return null;
     }
 
     @Transactional
     public AccountWrapper edit(AccountWrapper wrapper) {
-
+        return null;
     }
 
     public AccountWrapper get(Long id) {
-
+        return null;
     }
 
     public void delete(Long id) {

@@ -78,8 +78,8 @@ public class OrderProductService {
                 Account account = instagramService.registerAccount(temporaryMail, driver);
                 boolean isActivated = temporaryMailService.successRegister(driver);
 
-                account.setProduct(productRepository.findProductById(wrapper.getProduct()));
-                account.setDateCreate(LocalDateTime.now());
+                //account.setProduct(productRepository.findProductById(wrapper.getProduct()));
+                //account.setDateCreate(LocalDateTime.now());
 
 
                 //registeredAccounts.add(account);
