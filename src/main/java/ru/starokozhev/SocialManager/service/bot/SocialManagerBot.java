@@ -6,7 +6,6 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
-import ru.starokozhev.SocialManager.service.OrderProductService;
 
 import java.util.regex.Pattern;
 
@@ -19,7 +18,6 @@ public class SocialManagerBot extends TelegramLongPollingBot {
     private final static Long CHAT_ID = -376015465L;
 
     private Long chatId = null;
-    private OrderProductService orderProductService;
 
     @Override
     public void onUpdateReceived(Update update) {
@@ -36,13 +34,11 @@ public class SocialManagerBot extends TelegramLongPollingBot {
         }
     }
 
-    public void getTemporaryMail(OrderProductService orderProductService) {
-        if (chatId != null && orderProductService != null) {
+    public void sendMessage() {
+        if (chatId != null) {
             SendMessage message = new SendMessage() // Create a SendMessage object with mandatory fields
                     .setChatId(chatId)
                     .setText(METHOD_GET);
-
-            this.orderProductService = orderProductService;
 
             try {
                 execute(message); // Call method to send the message

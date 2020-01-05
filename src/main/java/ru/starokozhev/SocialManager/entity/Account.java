@@ -1,8 +1,8 @@
 package ru.starokozhev.SocialManager.entity;
 
 import lombok.Data;
-import ru.starokozhev.SocialManager.enums.ProductName;
-import ru.starokozhev.SocialManager.enums.ProductType;
+import ru.starokozhev.SocialManager.enums.AccountState;
+import ru.starokozhev.SocialManager.enums.AccountType;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -17,22 +17,28 @@ public class Account {
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_product")
-    private Product product;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_order_product")
-    private OrderProduct orderProduct;
+    @JoinColumn(name = "id_proxy")
+    private Proxy proxy;
 
     private String login;
 
     private String password;
 
-    @Column(name = "full_name")
-    private String fullName;
+    private String newMail;
 
-    @Column(name = "user_name")
-    private String userName;
+    private String passwordFromNewMail;
+
+    private String oldMail;
+
+    private String passwordFromOldMail;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "account_state")
+    private AccountState accountState;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "account_type")
+    private AccountType accountType;
 
     @Column(name = "date_create")
     private LocalDateTime dateCreate;

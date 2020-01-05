@@ -2,16 +2,13 @@ package ru.starokozhev.SocialManager.service.mail;
 
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.*;
-import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.stereotype.Component;
 import ru.starokozhev.SocialManager.dto.TemporaryMailWrapper;
 
 import java.util.ArrayList;
-import java.util.Set;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.presenceOfElementLocated;
-import static org.openqa.selenium.support.ui.ExpectedConditions.refreshed;
 
 @Component
 @Log4j2

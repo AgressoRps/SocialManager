@@ -6,25 +6,30 @@ import ru.starokozhev.SocialManager.enums.ProxyState;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "proxy_product")
 @Data
-public class ProxyProduct {
+public class Proxy {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String url;
+    private String ip;
+
+    private String port;
 
     private String login;
 
     private String password;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "id_order_product")
-    private OrderProduct orderProduct;
+    @OneToMany(mappedBy = "proxy")
+    private Set<Account> accounts = new LinkedHashSet<>();
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "proxy_state")

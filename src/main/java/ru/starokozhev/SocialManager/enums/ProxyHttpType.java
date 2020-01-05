@@ -2,7 +2,7 @@ package ru.starokozhev.SocialManager.enums;
 
 public enum ProxyHttpType {
     HTTP("HTTP"),
-    HTTPS("HTTPS");
+    SOCKS_5("SOCKS 5");
 
     private String friendlyName;
 

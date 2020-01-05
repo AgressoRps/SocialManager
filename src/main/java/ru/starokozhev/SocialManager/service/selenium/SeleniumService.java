@@ -1,15 +1,12 @@
 package ru.starokozhev.SocialManager.service.selenium;
 
 import lombok.SneakyThrows;
-import org.openqa.selenium.Proxy;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.remote.RemoteWebDriver;
 import org.springframework.stereotype.Service;
-import ru.starokozhev.SocialManager.entity.ProxyProduct;
 
-import javax.annotation.PreDestroy;
 import java.io.File;
 
 
@@ -32,7 +29,7 @@ public class SeleniumService {
         service.stop();
     }
 
-    public WebDriver createDriver(ProxyProduct proxyProduct) {
+    public WebDriver createDriver() {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("incognito");
         driver = new RemoteWebDriver(service.getUrl(), options);

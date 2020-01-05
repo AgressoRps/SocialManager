@@ -11,7 +11,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import ru.starokozhev.SocialManager.dto.TemporaryMailWrapper;
 import ru.starokozhev.SocialManager.entity.Account;
-import ru.starokozhev.SocialManager.entity.Product;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -4,7 +4,8 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.starokozhev.SocialManager.entity.Account;
-import ru.starokozhev.SocialManager.entity.Product;
+import ru.starokozhev.SocialManager.enums.AccountState;
+import ru.starokozhev.SocialManager.enums.AccountType;
 
 import java.time.LocalDateTime;
 
@@ -14,15 +15,23 @@ public class AccountWrapper {
 
     private Long id;
 
-    private ProductWrapper product;
+    private Long proxy;
 
     private String login;
 
     private String password;
 
-    private String fullName;
+    private String newMail;
 
-    private String userName;
+    private String passwordFromNewMail;
+
+    private String oldMail;
+
+    private String passwordFromOldMail;
+
+    private AccountState accountState;
+
+    private AccountType accountType;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.mm.yyyy HH:mm")
     private LocalDateTime dateCreate;
@@ -34,12 +43,16 @@ public class AccountWrapper {
     private void toWrapper(Account account) {
         if (account != null) {
             id = account.getId();
-            product = new ProductWrapper(account.getProduct());
+            proxy = account.getProxy() != null ? account.getProxy().getId() : null;
             login = account.getLogin();
             password = account.getPassword();
-            fullName = account.getFullName();
-            userName = account.getUserName();
-            dateCreate = product.getDateCreate();
+            newMail = account.getNewMail();
+            passwordFromNewMail = account.getPasswordFromNewMail();
+            oldMail = account.getOldMail();
+            passwordFromOldMail = account.getPasswordFromOldMail();
+            accountState = account.getAccountState();
+            accountType = account.getAccountType();
+            dateCreate = account.getDateCreate();
         }
     }
 
@@ -47,8 +60,12 @@ public class AccountWrapper {
         if (account != null) {
             account.setLogin(login);
             account.setPassword(password);
-            account.setFullName(fullName);
-            account.setUserName(userName);
+            account.setNewMail(newMail);
+            account.setPasswordFromNewMail(passwordFromNewMail);
+            account.setOldMail(oldMail);
+            account.setPasswordFromOldMail(passwordFromOldMail);
+            account.setAccountState(accountState);
+            account.setAccountType(accountType);
         }
     }
 
