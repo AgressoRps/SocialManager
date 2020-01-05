@@ -8,4 +8,6 @@ public interface AccountRepository extends JpaRepository<Account, Long>, JpaSpec
 
     Account findAccountById(Long id);
 
+    Account findAccountByLogin(String login);
+
 }
