@@ -9,7 +9,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
-import ru.starokozhev.SocialManager.dto.TemporaryMailWrapper;
 import ru.starokozhev.SocialManager.entity.Account;
 
 import java.util.ArrayList;
@@ -28,7 +27,7 @@ public class InstagramService {
     private BCryptPasswordEncoder passwordEncoder;
     //private ProxyConfigService proxyConfigService;
 
-    @Autowired
+    /*@Autowired
     public InstagramService(BCryptPasswordEncoder passwordEncoder) {
         //this.driver = webDriver;
         this.passwordEncoder = passwordEncoder;
@@ -96,6 +95,6 @@ public class InstagramService {
         long uniqueNumber = Math.round(Math.random() * 1_000);
         String resultUsername = mail.substring(0, mail.indexOf('@'));
         return resultUsername.concat(String.valueOf(uniqueNumber)).concat(resultUsername);
-    }
+    }*/
 
 }

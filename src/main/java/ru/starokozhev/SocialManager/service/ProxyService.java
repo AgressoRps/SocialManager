@@ -1,6 +1,7 @@
 package ru.starokozhev.SocialManager.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import ru.starokozhev.SocialManager.dto.filter.ProxyAccountFilter;
 import ru.starokozhev.SocialManager.dto.ProxyWrapper;
@@ -52,7 +53,7 @@ public class ProxyService {
         return new ProxyWrapper(proxyProduct);
     }
 
-    public List<ProxyWrapper> list(ProxyAccountFilter filter) {
+    public Page<ProxyWrapper> list(ProxyAccountFilter filter) {
         //TODO build specification
         return null;
     }

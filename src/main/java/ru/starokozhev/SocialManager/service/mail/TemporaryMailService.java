@@ -4,7 +4,6 @@ import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.springframework.stereotype.Component;
-import ru.starokozhev.SocialManager.dto.TemporaryMailWrapper;
 
 import java.util.ArrayList;
 
@@ -17,7 +16,7 @@ public class TemporaryMailService {
     //TODO use @Value
     private final static String TEMPORARY_MAIL_SOURCE = "https://dropmail.me/ru/";
 
-    public TemporaryMailWrapper getTemporaryMail(WebDriver driver) {
+    /*public TemporaryMailWrapper getTemporaryMail(WebDriver driver) {
         WebDriverWait wait = new WebDriverWait(driver, 30);
 
         try {
@@ -46,6 +45,6 @@ public class TemporaryMailService {
         int x = 4;
 
         return true;
-    }
+    }*/
 
 }

@@ -1,6 +1,7 @@
 package ru.starokozhev.SocialManager.controller;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import ru.starokozhev.SocialManager.dto.ProxyWrapper;
 import ru.starokozhev.SocialManager.dto.filter.ProxyAccountFilter;
@@ -36,7 +37,7 @@ public class ProxyController {
     }
 
     @GetMapping
-    public List<ProxyWrapper> list(ProxyAccountFilter filter) {
+    public Page<ProxyWrapper> list(ProxyAccountFilter filter) {
         return proxyProductService.list(filter);
     }
 

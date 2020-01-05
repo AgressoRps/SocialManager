@@ -1,6 +1,7 @@
 package ru.starokozhev.SocialManager.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import ru.starokozhev.SocialManager.dto.AccountWrapper;
 import ru.starokozhev.SocialManager.dto.filter.AccountFilter;
@@ -33,7 +34,7 @@ public class AccountService {
 
     }
 
-    public List<AccountWrapper> list(AccountFilter filter) {
+    public Page<AccountWrapper> list(AccountFilter filter) {
         //TODO
         return null;
     }

@@ -36,6 +36,9 @@ public class AccountWrapper {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.mm.yyyy HH:mm")
     private LocalDateTime dateCreate;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd.mm.yyyy HH:mm")
+    private LocalDateTime dateBlocked;
+
     public AccountWrapper(Account account) {
         toWrapper(account);
     }
