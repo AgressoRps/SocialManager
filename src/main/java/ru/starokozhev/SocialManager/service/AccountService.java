@@ -6,20 +6,18 @@ import org.springframework.stereotype.Service;
 import ru.starokozhev.SocialManager.dto.AccountWrapper;
 import ru.starokozhev.SocialManager.dto.filter.AccountFilter;
 import ru.starokozhev.SocialManager.entity.Account;
-import ru.starokozhev.SocialManager.entity.Proxy;
 import ru.starokozhev.SocialManager.repository.AccountRepository;
-import ru.starokozhev.SocialManager.repository.ProxyRepository;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class AccountService {
 
     private final AccountRepository accountRepository;
-    private final ProxyRepository proxyRepository;
 
     @Transactional
     public AccountWrapper add(AccountWrapper wrapper) {
@@ -30,15 +28,6 @@ public class AccountService {
         if (byLogin != null)
             throw new IllegalArgumentException("Аккаунт с таким логином уже существует!");
 
-        if (wrapper.getProxy() != null) {
-            Proxy proxy = proxyRepository.findProxyById(wrapper.getProxy());
-
-            if (proxy == null)
-                throw new IllegalArgumentException("Указанный прокси не найден!");
-
-            account.setProxy(proxy);
-        }
-
         wrapper.fromWrapper(account);
 
         account.setDateCreate(LocalDateTime.now());
@@ -48,20 +37,52 @@ public class AccountService {
 
     @Transactional
     public AccountWrapper edit(AccountWrapper wrapper) {
-        return null;
+        Account account = accountRepository.findAccountById(wrapper.getId());
+
+        if (account == null)
+            throw new IllegalArgumentException("Аккаунт не найден");
+
+        wrapper.fromWrapper(account);
+
+        if (wrapper.getDateBlocked() != null)
+            account.setDateBlocked(wrapper.getDateBlocked());
+
+        return new AccountWrapper(accountRepository.save(account));
     }
 
     public AccountWrapper get(Long id) {
-        return null;
+        Account account = accountRepository.findAccountById(id);
+
+        if (account == null)
+            throw new IllegalArgumentException("Аккаунт не найден");
+
+        return new AccountWrapper(account);
     }
 
     public void delete(Long id) {
+        Account account = accountRepository.findAccountById(id);
 
+        if (account == null)
+            throw new IllegalArgumentException("Аккаунт не найден");
+
+        account.setDateClose(LocalDateTime.now());
+
+        accountRepository.save(account);
     }
 
-    public Page<AccountWrapper> list(AccountFilter filter) {
-        //TODO
-        return null;
+    public void block(Long id) {
+        Account account = accountRepository.findAccountById(id);
+
+        if (account == null)
+            throw new IllegalArgumentException("Аккаунт не найден");
+
+        account.setDateBlocked(LocalDateTime.now());
+
+        accountRepository.save(account);
+    }
+
+    public List<AccountWrapper> list(AccountFilter filter) {
+        return accountRepository.findAll().stream().map(AccountWrapper::new).collect(Collectors.toList());
     }
 
 }

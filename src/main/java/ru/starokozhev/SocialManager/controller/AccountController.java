@@ -7,6 +7,8 @@ import ru.starokozhev.SocialManager.dto.AccountWrapper;
 import ru.starokozhev.SocialManager.dto.filter.AccountFilter;
 import ru.starokozhev.SocialManager.service.AccountService;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("account")
 @RequiredArgsConstructor
@@ -35,7 +37,7 @@ public class AccountController {
     }
 
     @GetMapping
-    public Page<AccountWrapper> list(AccountFilter filter) {
+    public List<AccountWrapper> list(AccountFilter filter) {
         return accountService.list(filter);
     }
 
