@@ -1,6 +1,10 @@
 package ru.starokozhev.SocialManager;
 
 import lombok.RequiredArgsConstructor;
+import lombok.var;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.DefaultRedirectStrategy;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeDriverService;
@@ -12,8 +16,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.telegram.telegrambots.ApiContextInitializer;
@@ -53,7 +59,25 @@ public class SocialManagerApplication {
 	@PreDestroy
 	public void clearResources() {
 		SeleniumService.stopService();
-		seleniumService.quitDriver();
+
+		if (seleniumService != null)
+			seleniumService.quitDriver();
+	}
+
+	@Bean
+	public RestTemplate restTemplate() {
+		HttpClientBuilder httpClientBuilder = HttpClientBuilder
+				.create()
+				.setRedirectStrategy(new DefaultRedirectStrategy());
+
+		CloseableHttpClient httpClient = httpClientBuilder.build();
+
+		var requestFactory = new HttpComponentsClientHttpRequestFactory(httpClient);
+		//requestFactory.setConnectTimeout(30000);
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.setRequestFactory(requestFactory);
+
+		return restTemplate;
 	}
 
 }

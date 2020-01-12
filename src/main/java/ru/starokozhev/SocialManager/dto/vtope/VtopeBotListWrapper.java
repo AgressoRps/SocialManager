@@ -7,7 +7,7 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class BotListWrapper {
+public class VtopeBotListWrapper {
 
     private List<VtopeBotWrapper> bots;
 

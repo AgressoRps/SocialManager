@@ -34,7 +34,7 @@ public class SocialManagerBot extends TelegramLongPollingBot {
         }
     }
 
-    public void sendMessage() {
+    public void sendMessage(String send) {
         if (chatId != null) {
             SendMessage message = new SendMessage() // Create a SendMessage object with mandatory fields
                     .setChatId(chatId)
