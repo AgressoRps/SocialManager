@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import ru.starokozhev.SocialManager.dto.AccountWrapper;
 import ru.starokozhev.SocialManager.dto.filter.AccountFilter;
 import ru.starokozhev.SocialManager.entity.Account;
+import ru.starokozhev.SocialManager.enums.AccountPreparationStatus;
 import ru.starokozhev.SocialManager.repository.AccountRepository;
 
 import javax.transaction.Transactional;
@@ -48,6 +49,12 @@ public class AccountService {
             account.setDateBlocked(wrapper.getDateBlocked());
 
         return new AccountWrapper(accountRepository.save(account));
+    }
+
+    public AccountPreparationStatus preparation(Long id) {
+
+
+        return AccountPreparationStatus.SUCCESS;
     }
 
     public AccountWrapper get(Long id) {

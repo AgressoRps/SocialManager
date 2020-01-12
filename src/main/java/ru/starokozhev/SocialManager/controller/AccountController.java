@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.*;
 import ru.starokozhev.SocialManager.dto.AccountWrapper;
 import ru.starokozhev.SocialManager.dto.filter.AccountFilter;
+import ru.starokozhev.SocialManager.enums.AccountPreparationStatus;
 import ru.starokozhev.SocialManager.service.AccountService;
 
 import java.util.List;
@@ -24,6 +25,11 @@ public class AccountController {
     @PatchMapping
     public AccountWrapper edit(AccountWrapper wrapper) {
         return accountService.edit(wrapper);
+    }
+
+    @PostMapping("/preparation/{id}")
+    public AccountPreparationStatus preparation(@PathVariable(name = "id") Long id) {
+        return accountService.preparation(id)
     }
 
     @GetMapping("{id}")
