@@ -29,7 +29,7 @@ public class AccountController {
 
     @PostMapping("/preparation/{id}")
     public AccountPreparationStatus preparation(@PathVariable(name = "id") Long id) {
-        return accountService.preparation(id)
+        return accountService.preparation(id);
     }
 
     @GetMapping("{id}")
