@@ -11,8 +11,6 @@ import java.time.LocalDateTime;
 @Data
 public class User {
 
-    //TODO integrate JWT for sessions
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -41,6 +39,12 @@ public class User {
 
     @Enumerated(value = EnumType.STRING)
     private Role role;
+
+    @Column(name = "key")
+    private String key;
+
+    @Column(name = "user_uid")
+    private String userUid;
 
     private Double balance;
 

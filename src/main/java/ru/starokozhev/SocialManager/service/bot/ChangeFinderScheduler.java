@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import ru.starokozhev.SocialManager.dto.filter.RequestBotsFilter;
 import ru.starokozhev.SocialManager.dto.vtope.VtopeBotListWrapper;
+import ru.starokozhev.SocialManager.dto.vtope.VtopeBotWrapper;
+
+import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -18,6 +21,7 @@ public class ChangeFinderScheduler {
     private static String url = "https://vto.pe/botcontrol/list";
 
     private final RestTemplate restTemplate;
+    private final SocialManagerBot socialManagerBot;
 
     private VtopeBotListWrapper previousRequestBots;
 
@@ -34,8 +38,55 @@ public class ChangeFinderScheduler {
                 VtopeBotListWrapper.class
         );
 
-        log.info("Result: {}", responseEntity.getBody());
+        log.info("VTOPE: bot list loaded");
 
+        if (previousRequestBots != null)
+            if (responseEntity.getBody() != null)
+                compareBots(responseEntity.getBody().getBots());
+
+        previousRequestBots = responseEntity.getBody();
+    }
+
+    private void compareBots(List<VtopeBotWrapper> responseBots) {
+        List<VtopeBotWrapper> oldBots = previousRequestBots.getBots();
+
+        for (int i = 0; i < oldBots.size(); i++) {
+            for (int j = 0; j < responseBots.size(); j++) {
+
+                if (oldBots.get(i).getId().equals(responseBots.get(j).getId())) {
+                    if (!oldBots.get(i).equals(responseBots.get(j))) {
+                        String message = buildMessage(responseBots.get(j));
+                        socialManagerBot.sendMessage(message);
+                    }
+                }
+
+            }
+        }
+    }
+
+    private String buildMessage(VtopeBotWrapper bot) {
+        StringBuffer messageBuilder = new StringBuffer();
+
+        messageBuilder.append("................" + "\n");
+        messageBuilder.append("БОТ: " + bot.getName() + "\n");
+        messageBuilder.append("Статус: " + bot.getStatus().getFriendlyName() + "\n");
+        messageBuilder.append("Состояние: " + bot.getAccess() + "\n");
+        messageBuilder.append("===============" + "\n");
+        messageBuilder.append("Заработано за день: " + bot.getEarned().getDay() + "\n");
+        messageBuilder.append("Заработано за неделю: " + bot.getEarned().getWeek() + "\n");
+        messageBuilder.append("Заработано за месяц: " + bot.getEarned().getMonth() + "\n");
+        messageBuilder.append("===============" + "\n");
+        messageBuilder.append("Кол-во аккаунтов в работе: " + bot.getAccounts().getSuccess() + "\n");
+        messageBuilder.append("Кол-во аккаунтов с проблемами: " + bot.getAccounts().getWarning() + "\n");
+        messageBuilder.append("Кол-во нерабочих аккаунтов: " + bot.getAccounts().getDanger() + "\n");
+        messageBuilder.append("Кол-во аккаунтов, требующих вмешательство: " + bot.getAccounts().getPrimary() + "\n");
+        messageBuilder.append("===============" + "\n");
+        messageBuilder.append("Кол-во прокси в работе: " + bot.getProxies().getSuccess() + "\n");
+        messageBuilder.append("Кол-во прокси с проблемами: " + bot.getProxies().getDanger() + "\n");
+        messageBuilder.append("Кол-во нерабочих прокси: " + bot.getProxies().getWarning() + "\n");
+        messageBuilder.append("................" + "\n");
+
+        return messageBuilder.toString();
     }
 
 }

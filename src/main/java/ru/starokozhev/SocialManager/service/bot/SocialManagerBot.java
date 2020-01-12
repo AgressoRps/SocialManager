@@ -13,32 +13,31 @@ import java.util.regex.Pattern;
 @Log4j2
 public class SocialManagerBot extends TelegramLongPollingBot {
 
-    private final static String METHOD_GET = "/get";
+    //private final static String METHOD_GET = "/get";
     private final static String MAIL_REGEX = "^(.+)@(.+)$";
-    private final static Long CHAT_ID = -376015465L;
+    //private final static Long CHAT_ID = 672167473L;
 
-    private Long chatId = null;
+    private static Long chatId = null;
+    private static boolean sendMessages;
 
     @Override
     public void onUpdateReceived(Update update) {
         if (update.hasMessage() && update.getMessage().hasText()) {
             log.info("NEW MESSAGE! {}", update.getMessage());
-            if (update.getMessage().getFrom().getBot()) {
-                chatId = update.getMessage().getChatId();
-                String message = update.getMessage().getText();
+            chatId = update.getMessage().getChatId();
 
-                if (thisMessageIsEmail(message)){
-                    log.info("MESSAGE IS EMAIL: {}", message);
-                }
-            }
+            if (update.getMessage().getText().equals("/start"))
+                sendMessages = true;
+            else if (update.getMessage().getText().equals("/stop"))
+                sendMessages = false;
         }
     }
 
     public void sendMessage(String send) {
-        if (chatId != null) {
+        if (chatId != null && sendMessages) {
             SendMessage message = new SendMessage() // Create a SendMessage object with mandatory fields
                     .setChatId(chatId)
-                    .setText(METHOD_GET);
+                    .setText(send);
 
             try {
                 execute(message); // Call method to send the message
