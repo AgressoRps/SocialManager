@@ -31,29 +31,31 @@ public class ChangeFinderScheduler {
         if (updatedUsers != null && !updatedUsers.isEmpty()) {
 
             for (User user : updatedUsers) {
-                RequestBotsFilter filter = new RequestBotsFilter();
-                filter.setKey(user.getVtopeKey());
-                filter.setUser(user.getVtopeUser());
+                if (user.getVtopeKey() != null && user.getVtopeUser() != null) {
+                    RequestBotsFilter filter = new RequestBotsFilter();
+                    filter.setKey(user.getVtopeKey());
+                    filter.setUser(user.getVtopeUser());
 
-                HttpHeaders headers = new HttpHeaders();
-                headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
-                HttpEntity<RequestBotsFilter> requestEntity = new HttpEntity<>(filter, headers);
+                    HttpHeaders headers = new HttpHeaders();
+                    headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+                    HttpEntity<RequestBotsFilter> requestEntity = new HttpEntity<>(filter, headers);
 
-                String url = "https://vto.pe/botcontrol/list";
-                ResponseEntity<VtopeBotListWrapper> responseEntity = restTemplate.exchange(
-                        url,
-                        HttpMethod.POST,
-                        requestEntity,
-                        VtopeBotListWrapper.class
-                );
+                    String url = "https://vto.pe/botcontrol/list";
+                    ResponseEntity<VtopeBotListWrapper> responseEntity = restTemplate.exchange(
+                            url,
+                            HttpMethod.POST,
+                            requestEntity,
+                            VtopeBotListWrapper.class
+                    );
 
-                log.info("VTOPE: bot list loaded");
-                if (responseEntity.getBody() != null) {
-                    List<VtopeBotWrapper> vtopeBots = responseEntity.getBody().getBots();
+                    log.info("VTOPE: bot list loaded");
+                    if (responseEntity.getBody() != null) {
+                        List<VtopeBotWrapper> vtopeBots = responseEntity.getBody().getBots();
 
-                    //todo
+                        //todo
 
-                    //compareBots(responseEntity.getBody().getBots());
+                        //compareBots(responseEntity.getBody().getBots());
+                    }
                 }
             }
 
