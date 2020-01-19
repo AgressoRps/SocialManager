@@ -1,7 +1,6 @@
 package ru.starokozhev.SocialManager.entity;
 
 import lombok.Data;
-import ru.starokozhev.SocialManager.enums.vtope.VtopeAccountService;
 
 import javax.persistence.*;
 
