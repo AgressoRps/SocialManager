@@ -40,11 +40,20 @@ public class User {
     @Enumerated(value = EnumType.STRING)
     private Role role;
 
-    @Column(name = "key")
-    private String key;
+    @Column(name = "vtope_key")
+    private String vtopeKey;
 
-    @Column(name = "user_uid")
-    private String userUid;
+    @Column(name = "vtope_user")
+    private String vtopeUser;
+
+    @Column(name = "telegram_chad_id")
+    private Long telegramChatId;
+
+    @Column(name = "notify_changes_in_bot")
+    private Boolean notifyChangesInBot;
+
+    @Column(name = "update_from_vtope")
+    private Boolean updateFromVtope;
 
     private Double balance;
 

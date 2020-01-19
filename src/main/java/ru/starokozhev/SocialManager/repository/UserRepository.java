@@ -18,5 +18,9 @@ public interface UserRepository extends JpaRepository<User, Long>, JpaSpecificat
 
     User findUserById(Long id);
 
+    List<User> findUsersByNotifyChangesInBotIsNotNull();
+
+    List<User> findUsersByUpdateFromVtopeIsNotNull();
+
     List<User> findAllByDateCloseIsNullOrderByIdDesc();
 }

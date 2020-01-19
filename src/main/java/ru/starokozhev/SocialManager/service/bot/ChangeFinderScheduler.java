@@ -9,6 +9,9 @@ import org.springframework.web.client.RestTemplate;
 import ru.starokozhev.SocialManager.dto.filter.RequestBotsFilter;
 import ru.starokozhev.SocialManager.dto.vtope.VtopeBotListWrapper;
 import ru.starokozhev.SocialManager.dto.vtope.VtopeBotWrapper;
+import ru.starokozhev.SocialManager.entity.User;
+import ru.starokozhev.SocialManager.repository.UserRepository;
+import ru.starokozhev.SocialManager.service.UserService;
 
 import java.util.List;
 
@@ -17,40 +20,48 @@ import java.util.List;
 @Log4j2
 public class ChangeFinderScheduler {
 
-    //TODO changed
-    private static String url = "https://vto.pe/botcontrol/list";
-
     private final RestTemplate restTemplate;
     private final SocialManagerBot socialManagerBot;
-
-    private VtopeBotListWrapper previousRequestBots;
+    private final UserRepository userRepository;
 
     @Scheduled(fixedRate = 60000)
     public void findChangesInVtopeBot() {
-        HttpHeaders headers = new HttpHeaders();
-        headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
-        HttpEntity<RequestBotsFilter> requestEntity = new HttpEntity<>(new RequestBotsFilter(), headers);
+        List<User> updatedUsers = userRepository.findUsersByUpdateFromVtopeIsNotNull();
 
-        ResponseEntity<VtopeBotListWrapper> responseEntity = restTemplate.exchange(
-                url,
-                HttpMethod.POST,
-                requestEntity,
-                VtopeBotListWrapper.class
-        );
+        if (updatedUsers != null && !updatedUsers.isEmpty()) {
 
-        log.info("VTOPE: bot list loaded");
+            for (User user : updatedUsers) {
+                RequestBotsFilter filter = new RequestBotsFilter();
+                filter.setKey(user.getVtopeKey());
+                filter.setUser(user.getVtopeUser());
 
-        if (previousRequestBots != null)
-            if (responseEntity.getBody() != null)
-                compareBots(responseEntity.getBody().getBots());
+                HttpHeaders headers = new HttpHeaders();
+                headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
+                HttpEntity<RequestBotsFilter> requestEntity = new HttpEntity<>(filter, headers);
 
-        previousRequestBots = responseEntity.getBody();
+                String url = "https://vto.pe/botcontrol/list";
+                ResponseEntity<VtopeBotListWrapper> responseEntity = restTemplate.exchange(
+                        url,
+                        HttpMethod.POST,
+                        requestEntity,
+                        VtopeBotListWrapper.class
+                );
+
+                log.info("VTOPE: bot list loaded");
+                if (responseEntity.getBody() != null) {
+                    List<VtopeBotWrapper> vtopeBots = responseEntity.getBody().getBots();
+
+                    //todo
+
+                    //compareBots(responseEntity.getBody().getBots());
+                }
+            }
+
+        }
     }
 
     private void compareBots(List<VtopeBotWrapper> responseBots) {
-        List<VtopeBotWrapper> oldBots = previousRequestBots.getBots();
-
-        for (int i = 0; i < oldBots.size(); i++) {
+        /*for (int i = 0; i < oldBots.size(); i++) {
             for (int j = 0; j < responseBots.size(); j++) {
 
                 if (oldBots.get(i).getId().equals(responseBots.get(j).getId())) {
@@ -61,7 +72,7 @@ public class ChangeFinderScheduler {
                 }
 
             }
-        }
+        }*/
     }
 
     private String buildMessage(VtopeBotWrapper bot) {

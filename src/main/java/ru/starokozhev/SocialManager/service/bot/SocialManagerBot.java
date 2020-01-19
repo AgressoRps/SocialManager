@@ -13,12 +13,10 @@ import java.util.regex.Pattern;
 @Log4j2
 public class SocialManagerBot extends TelegramLongPollingBot {
 
-    //private final static String METHOD_GET = "/get";
     private final static String MAIL_REGEX = "^(.+)@(.+)$";
-    //private final static Long CHAT_ID = 672167473L;
 
-    private static Long chatId = null;
-    private static boolean sendMessages;
+    private Long chatId = null;
+    private boolean sendMessages;
 
     @Override
     public void onUpdateReceived(Update update) {
