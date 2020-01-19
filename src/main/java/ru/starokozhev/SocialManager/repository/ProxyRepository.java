@@ -15,6 +15,8 @@ public interface ProxyRepository extends JpaRepository<Proxy, Long> {
 
     List<Proxy> findAllByBot(Bot bot);
 
+    Proxy findProxyByIpAndPort(String ip, String port);
+
     Proxy findByIp(String ip);
 
 }

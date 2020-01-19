@@ -29,7 +29,7 @@ public class JwtSecurityConfigure extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/index", "/auth", "/register", "/css/**", "/js/**", "/img/**").permitAll() //"/**",
+                .antMatchers("/**", "/index", "/auth", "/register", "/css/**", "/js/**", "/img/**").permitAll() //"/**",
                 .antMatchers("/swagger-ui**").permitAll()
                 .antMatchers("/swagger-ui.html").permitAll()
                 .antMatchers("/swagger-resources/**").permitAll()
