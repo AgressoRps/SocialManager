@@ -1,10 +1,10 @@
 package ru.starokozhev.SocialManager.entity;
 
 import lombok.Data;
-import ru.starokozhev.SocialManager.enums.AccountState;
+import ru.starokozhev.SocialManager.enums.vtope.VtopeAccountService;
+import ru.starokozhev.SocialManager.enums.vtope.VtopeProxyMode;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "account")
@@ -15,35 +15,36 @@ public class Account {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String proxy;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_user")
+    private User user;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_bot")
+    private Bot bot;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "service")
+    private VtopeAccountService service;
 
     private String login;
 
     private String password;
 
-    private String mail;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_strategy")
+    private Strategy strategy;
 
-    private String passwordMail;
-
-    //private String newMail;
-
-    //private String passwordFromNewMail;
-
-    //private String oldMail;
-
-    //private String passwordFromOldMail;
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @JoinColumn(name = "id_mail")
+    private Mail mail;
 
     @Enumerated(value = EnumType.STRING)
-    @Column(name = "account_state")
-    private AccountState accountState;
+    @Column(name = "proxy_mode")
+    private VtopeProxyMode proxyMode;
 
-    @Column(name = "date_create")
-    private LocalDateTime dateCreate;
-
-    @Column(name = "date_blocked")
-    private LocalDateTime dateBlocked;
-
-    @Column(name = "date_close")
-    private LocalDateTime dateClose;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_proxy")
+    private Proxy proxy;
 
 }
