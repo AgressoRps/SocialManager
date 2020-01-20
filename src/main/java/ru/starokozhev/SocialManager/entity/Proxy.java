@@ -1,9 +1,11 @@
 package ru.starokozhev.SocialManager.entity;
 
 import lombok.Data;
+import ru.starokozhev.SocialManager.enums.ProxyState;
 import ru.starokozhev.SocialManager.enums.ProxyType;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "proxy")
@@ -33,5 +35,15 @@ public class Proxy {
     private String login;
 
     private String password;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "proxyState")
+    private ProxyState proxyState;
+
+    @Column(name = "date_create")
+    private LocalDateTime dateCreate;
+
+    @Column(name = "date_close")
+    private LocalDateTime dateClose;
 
 }

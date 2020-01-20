@@ -3,8 +3,11 @@ package ru.starokozhev.SocialManager.dto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.starokozhev.SocialManager.entity.Account;
+import ru.starokozhev.SocialManager.enums.AccountState;
 import ru.starokozhev.SocialManager.enums.vtope.VtopeAccountService;
 import ru.starokozhev.SocialManager.enums.vtope.VtopeProxyMode;
+
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -28,6 +31,10 @@ public class AccountWrapper {
 
     private ProxyWrapper proxy;
 
+    private AccountState accountState;
+
+    private LocalDateTime dateCreate;
+
     public AccountWrapper(Account account) {
         toWrapper(account);
     }
@@ -43,6 +50,8 @@ public class AccountWrapper {
             mail = new MailWrapper(account.getMail());
             proxyMode = account.getProxyMode();
             proxy = new ProxyWrapper(account.getProxy());
+            accountState = account.getAccountState();
+            dateCreate = account.getDateCreate();
         }
     }
 

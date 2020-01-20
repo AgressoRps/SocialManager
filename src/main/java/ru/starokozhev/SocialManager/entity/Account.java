@@ -1,10 +1,12 @@
 package ru.starokozhev.SocialManager.entity;
 
 import lombok.Data;
+import ru.starokozhev.SocialManager.enums.AccountState;
 import ru.starokozhev.SocialManager.enums.vtope.VtopeAccountService;
 import ru.starokozhev.SocialManager.enums.vtope.VtopeProxyMode;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "account")
@@ -46,5 +48,15 @@ public class Account {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_proxy")
     private Proxy proxy;
+
+    @Enumerated(value = EnumType.STRING)
+    @Column(name = "account_state")
+    private AccountState accountState;
+
+    @Column(name = "date_create")
+    private LocalDateTime dateCreate;
+
+    @Column(name = "date_close")
+    private LocalDateTime dateClose;
 
 }

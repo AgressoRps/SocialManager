@@ -3,7 +3,10 @@ package ru.starokozhev.SocialManager.dto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import ru.starokozhev.SocialManager.entity.Proxy;
+import ru.starokozhev.SocialManager.enums.ProxyState;
 import ru.starokozhev.SocialManager.enums.ProxyType;
+
+import java.time.LocalDateTime;
 
 @Data
 @NoArgsConstructor
@@ -23,6 +26,10 @@ public class ProxyWrapper {
 
     private String password;
 
+    private ProxyState proxyState;
+
+    private LocalDateTime dateCreate;
+
     public ProxyWrapper(Proxy proxy) {
         toWrapper(proxy);
     }
@@ -36,6 +43,8 @@ public class ProxyWrapper {
             port = proxy.getPort();
             login = proxy.getLogin();
             password = proxy.getPassword();
+            proxyState = proxy.getProxyState();
+            dateCreate = proxy.getDateCreate();
         }
     }
 
