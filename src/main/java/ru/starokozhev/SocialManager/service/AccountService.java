@@ -12,6 +12,7 @@ import ru.starokozhev.SocialManager.repository.ProxyRepository;
 import ru.starokozhev.SocialManager.repository.StrategyRepository;
 
 import javax.transaction.Transactional;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -142,6 +143,28 @@ public class AccountService {
 
     public List<AccountWrapper> list(AccountFilter filter) {
         return accountRepository.findAll().stream().map(AccountWrapper::new).collect(Collectors.toList());
+    }
+
+    public void delete(String login) {
+        Account account = accountRepository.findByLogin(login);
+
+        if (account == null)
+            throw new IllegalArgumentException("Аккаунт не найден");
+
+        account.setDateClose(LocalDateTime.now());
+
+        accountRepository.save(account);
+    }
+
+    public void delete(Long id) {
+        Account account = accountRepository.findAccountById(id);
+
+        if (account == null)
+            throw new IllegalArgumentException("Аккаунт не найден");
+
+        account.setDateClose(LocalDateTime.now());
+
+        accountRepository.save(account);
     }
 
 }
