@@ -37,7 +37,7 @@ public class Bot {
     @Column(name = "allow_control")
     private Boolean allowControl;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "id_earned")
     private Earned earned;
 

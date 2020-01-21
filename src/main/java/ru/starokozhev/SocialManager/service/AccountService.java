@@ -30,17 +30,18 @@ public class AccountService {
     @Transactional
     public AccountWrapper add(AccountWrapper wrapper) {
         Account account = new Account();
+        User user = userService.getCurrentUser();
 
-        Account existAccount = accountRepository.findByLogin(wrapper.getLogin());
+        Account existAccount = accountRepository.findByLoginAndUser(wrapper.getLogin(), user);
         if (existAccount != null)
             throw new IllegalArgumentException("Аккаунт с таким логином уже существует!");
 
         wrapper.fromWrapper(account);
 
-        account.setUser(userService.getCurrentUser());
+        account.setUser(user);
 
         if (wrapper.getBot() != null) {
-            Bot bot = botRepository.findByName(wrapper.getBot().getName());
+            Bot bot = botRepository.findByNameAndUser(wrapper.getBot().getName(), user);
 
             if (bot == null)
                 throw new IllegalArgumentException("Указанный бот не найден!");
@@ -49,7 +50,7 @@ public class AccountService {
         }
 
         if (wrapper.getStrategy() != null && wrapper.getStrategy().getName() != null) {
-            Strategy strategy = strategyRepository.findStrategyByName(wrapper.getStrategy().getName());
+            Strategy strategy = strategyRepository.findStrategyByNameAndUser(wrapper.getStrategy().getName(), user);
 
             if (strategy == null)
                 throw new IllegalArgumentException("Указанная стратегия не найдена!");
@@ -62,7 +63,8 @@ public class AccountService {
         account.setMail(mail);
 
         if (wrapper.getProxy() != null && wrapper.getProxy().getIp() != null && wrapper.getProxy().getPort() != null) {
-            Proxy proxy = proxyRepository.findProxyByIpAndPort(wrapper.getProxy().getIp(), wrapper.getProxy().getPort());
+            Proxy proxy = proxyRepository.findProxyByIpAndPortAndUser(wrapper.getProxy().getIp(),
+                    wrapper.getProxy().getPort(), user);
 
             if (proxy == null) {
                 ProxyWrapper proxyWrapper = proxyService.add(wrapper.getProxy());
@@ -76,18 +78,20 @@ public class AccountService {
         return new AccountWrapper(accountRepository.save(account));
     }
 
+    @Transactional
     public AccountWrapper edit(AccountWrapper wrapper) {
-        Account account = accountRepository.findByLogin(wrapper.getLogin());
+        User user = userService.getCurrentUser();
+        Account account = accountRepository.findAccountById(wrapper.getId());
 
         if (account == null)
             throw new IllegalArgumentException("Аккаунт не найден");
 
         wrapper.fromWrapper(account);
 
-        account.setUser(userService.getCurrentUser());
+        account.setUser(user);
 
         if (wrapper.getBot() != null) {
-            Bot bot = botRepository.findByName(wrapper.getBot().getName());
+            Bot bot = botRepository.findByNameAndUser(wrapper.getBot().getName(), user);
 
             if (bot == null)
                 throw new IllegalArgumentException("Указанный бот не найден!");
@@ -96,7 +100,7 @@ public class AccountService {
         }
 
         if (wrapper.getStrategy() != null && wrapper.getStrategy().getName() != null) {
-            Strategy strategy = strategyRepository.findStrategyByName(wrapper.getStrategy().getName());
+            Strategy strategy = strategyRepository.findStrategyByNameAndUser(wrapper.getStrategy().getName(), user);
 
             if (strategy == null)
                 throw new IllegalArgumentException("Указанная стратегия не найдена!");
@@ -109,7 +113,8 @@ public class AccountService {
         account.setMail(mail);
 
         if (wrapper.getProxy() != null && wrapper.getProxy().getIp() != null && wrapper.getProxy().getPort() != null) {
-            Proxy proxy = proxyRepository.findProxyByIpAndPort(wrapper.getProxy().getIp(), wrapper.getProxy().getPort());
+            Proxy proxy = proxyRepository.findProxyByIpAndPortAndUser(wrapper.getProxy().getIp(),
+                    wrapper.getProxy().getPort(), user);
 
             if (proxy == null) {
                 ProxyWrapper proxyWrapper = proxyService.add(wrapper.getProxy());
@@ -133,7 +138,8 @@ public class AccountService {
     }
 
     public AccountWrapper get(String login) {
-        Account account = accountRepository.findByLogin(login);
+        User user = userService.getCurrentUser();
+        Account account = accountRepository.findByLoginAndUser(login, user);
 
         if (account == null)
             throw new IllegalArgumentException("Аккаунт не найден");
@@ -146,7 +152,8 @@ public class AccountService {
     }
 
     public void delete(String login) {
-        Account account = accountRepository.findByLogin(login);
+        User user = userService.getCurrentUser();
+        Account account = accountRepository.findByLoginAndUser(login, user);
 
         if (account == null)
             throw new IllegalArgumentException("Аккаунт не найден");

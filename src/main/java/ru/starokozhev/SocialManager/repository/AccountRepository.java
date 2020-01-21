@@ -14,9 +14,9 @@ public interface AccountRepository extends JpaRepository<Account, Long> {
 
     List<Account> findAllByBot(Bot bot);
 
-    Account findByLogin(String login);
+    Account findByLoginAndUser(String login, User user);
 
-    Account findByMail(Mail mail);
+    Account findByMailAndUser(Mail mail, User user);
 
     Account findAccountById(Long id);
 
