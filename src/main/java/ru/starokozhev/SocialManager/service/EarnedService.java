@@ -1,30 +1,44 @@
 package ru.starokozhev.SocialManager.service;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.starokozhev.SocialManager.dto.EarnedWrapper;
+import ru.starokozhev.SocialManager.entity.Earned;
+import ru.starokozhev.SocialManager.repository.EarnedRepository;
 
 import java.util.List;
 
 @Service
+@RequiredArgsConstructor
 public class EarnedService {
 
+    private final EarnedRepository earnedRepository;
+
     public EarnedWrapper add(EarnedWrapper wrapper) {
-        return null;
+        Earned earned = new Earned();
+        wrapper.fromWrapper(earned);
+
+        return new EarnedWrapper(earnedRepository.save(earned));
     }
 
     public EarnedWrapper edit(EarnedWrapper wrapper) {
-        return null;
+        Earned earned = earnedRepository.findEarnedById(wrapper.getId());
+
+        if (earned == null)
+            throw new IllegalArgumentException("Доход не найден!");
+
+        wrapper.fromWrapper(earned);
+
+        return new EarnedWrapper(earnedRepository.save(earned));
     }
 
     public EarnedWrapper get(Long id) {
-        return null;
-    }
+        Earned earned = earnedRepository.findEarnedById(id);
 
-    public void delete(Long id) {
-    }
+        if (earned == null)
+            throw new IllegalArgumentException("Доход не найден!");
 
-    public List<EarnedWrapper> list() {
-        return null;
+        return new EarnedWrapper(earned);
     }
 
 }
