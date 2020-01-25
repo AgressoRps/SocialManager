@@ -3,6 +3,7 @@ package ru.starokozhev.SocialManager.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import ru.starokozhev.SocialManager.dto.AccountWrapper;
+import ru.starokozhev.SocialManager.dto.BotWrapper;
 import ru.starokozhev.SocialManager.dto.ProxyWrapper;
 import ru.starokozhev.SocialManager.dto.filter.AccountFilter;
 import ru.starokozhev.SocialManager.entity.*;
@@ -138,8 +139,14 @@ public class AccountService {
         return new AccountWrapper(account);
     }
 
-    public List<AccountWrapper> list(AccountFilter filter) {
-        return accountRepository.findAll().stream().map(AccountWrapper::new).collect(Collectors.toList());
+    public List<AccountWrapper> list(BotWrapper wrapper) {
+        User user = userService.getCurrentUser();
+        Bot bot = botRepository.findByNameAndUser(wrapper.getName(), user);
+
+        if (bot == null)
+            throw new IllegalArgumentException("Невозможно получить список аккаунтов. Бот не найден!");
+
+        return accountRepository.findAllByBot(bot).stream().map(AccountWrapper::new).collect(Collectors.toList());
     }
 
     public void delete(String login) {

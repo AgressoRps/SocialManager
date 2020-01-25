@@ -10,6 +10,9 @@ import ru.starokozhev.SocialManager.entity.User;
 import ru.starokozhev.SocialManager.repository.BotRepository;
 import ru.starokozhev.SocialManager.repository.EarnedRepository;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 @RequiredArgsConstructor
 public class BotService {
@@ -43,7 +46,7 @@ public class BotService {
 
     public BotWrapper edit(BotWrapper wrapper) {
         User user = userService.getCurrentUser();
-        Bot bot = botRepository.findBotById(wrapper.getId());
+        Bot bot = botRepository.findByNameAndUser(wrapper.getName(), user);
 
         if (bot == null)
             throw new IllegalArgumentException("Бот не найден");
@@ -61,13 +64,19 @@ public class BotService {
         return new BotWrapper(bot);
     }
 
-    public BotWrapper get(Long id) {
-        Bot bot = botRepository.findBotById(id);
+    public BotWrapper get(String name) {
+        User user = userService.getCurrentUser();
+        Bot bot = botRepository.findByNameAndUser(name, user);
 
         if (bot == null)
             throw new IllegalArgumentException("Бот не найден");
 
         return new BotWrapper(bot);
+    }
+
+    public List<BotWrapper> list() {
+        return botRepository.findAllByUser(userService.getCurrentUser()).stream().map(BotWrapper::new)
+                .collect(Collectors.toList());
     }
 
 }
