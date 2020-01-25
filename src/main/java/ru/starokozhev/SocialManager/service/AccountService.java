@@ -81,7 +81,7 @@ public class AccountService {
     @Transactional
     public AccountWrapper edit(AccountWrapper wrapper) {
         User user = userService.getCurrentUser();
-        Account account = accountRepository.findAccountById(wrapper.getId());
+        Account account = accountRepository.findByLoginAndUser(wrapper.getLogin(), user);
 
         if (account == null)
             throw new IllegalArgumentException("Аккаунт не найден");
@@ -128,15 +128,6 @@ public class AccountService {
         return new AccountWrapper(accountRepository.save(account));
     }
 
-    public AccountWrapper get(Long id) {
-        Account account = accountRepository.findAccountById(id);
-
-        if (account == null)
-            throw new IllegalArgumentException("Аккаунт не найден");
-
-        return new AccountWrapper(account);
-    }
-
     public AccountWrapper get(String login) {
         User user = userService.getCurrentUser();
         Account account = accountRepository.findByLoginAndUser(login, user);
@@ -154,17 +145,6 @@ public class AccountService {
     public void delete(String login) {
         User user = userService.getCurrentUser();
         Account account = accountRepository.findByLoginAndUser(login, user);
-
-        if (account == null)
-            throw new IllegalArgumentException("Аккаунт не найден");
-
-        account.setDateClose(LocalDateTime.now());
-
-        accountRepository.save(account);
-    }
-
-    public void delete(Long id) {
-        Account account = accountRepository.findAccountById(id);
 
         if (account == null)
             throw new IllegalArgumentException("Аккаунт не найден");
