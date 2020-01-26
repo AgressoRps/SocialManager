@@ -3,6 +3,7 @@ package ru.starokozhev.SocialManager.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "mail")
@@ -16,5 +17,9 @@ public class Mail {
     private String email;
 
     private String password;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_user")
+    private User user;
 
 }
