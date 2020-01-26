@@ -76,6 +76,8 @@ public class AccountService {
             account.setProxy(proxy);
         }
 
+        account.setDateCreate(LocalDateTime.now());
+
         return new AccountWrapper(accountRepository.save(account));
     }
 
