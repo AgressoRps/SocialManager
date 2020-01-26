@@ -3,6 +3,7 @@ package ru.starokozhev.SocialManager.entity;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "strategy")
@@ -22,5 +23,8 @@ public class Strategy {
     private User user;
 
     private String name;
+
+    @Column(name = "date_close")
+    private LocalDateTime dateClose;
 
 }

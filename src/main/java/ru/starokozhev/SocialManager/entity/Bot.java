@@ -5,6 +5,7 @@ import ru.starokozhev.SocialManager.enums.vtope.VtopeBotAccess;
 import ru.starokozhev.SocialManager.enums.vtope.VtopeBotStatus;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -49,5 +50,8 @@ public class Bot {
 
     @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "bot", fetch = FetchType.LAZY)
     private Set<Strategy> strategies = new HashSet<>();
+
+    @Column(name = "date_close")
+    private LocalDateTime dateClose;
 
 }

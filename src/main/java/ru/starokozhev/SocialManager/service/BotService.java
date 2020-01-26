@@ -10,6 +10,7 @@ import ru.starokozhev.SocialManager.entity.User;
 import ru.starokozhev.SocialManager.repository.BotRepository;
 import ru.starokozhev.SocialManager.repository.EarnedRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -72,6 +73,17 @@ public class BotService {
             throw new IllegalArgumentException("Бот не найден");
 
         return new BotWrapper(bot);
+    }
+
+    public void delete(String name) {
+        User user = userService.getCurrentUser();
+        Bot bot = botRepository.findByNameAndUser(name, user);
+
+        if (bot == null)
+            throw new IllegalArgumentException("Бот не найден");
+
+        bot.setDateClose(LocalDateTime.now());
+        botRepository.save(bot);
     }
 
     public List<BotWrapper> list() {

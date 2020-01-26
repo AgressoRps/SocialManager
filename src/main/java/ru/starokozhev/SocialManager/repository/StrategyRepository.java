@@ -13,6 +13,8 @@ public interface StrategyRepository extends JpaRepository<Strategy, Long> {
 
     List<Strategy> findAllByBot(Bot bot);
 
+    List<Strategy> findAllByUser(User user);
+
     Strategy findStrategyByNameAndUser(String name, User user);
 
 }
