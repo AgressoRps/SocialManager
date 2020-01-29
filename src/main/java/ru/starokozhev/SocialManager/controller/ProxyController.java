@@ -26,7 +26,7 @@ public class ProxyController {
     }
 
     @GetMapping("{id}")
-    public ProxyWrapper get(Long id) {
+    public ProxyWrapper get(@PathVariable Long id) {
         return proxyService.get(id);
     }
 

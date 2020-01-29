@@ -22,4 +22,7 @@ public class Mail {
     @JoinColumn(name = "id_user")
     private User user;
 
+    @Column(name = "date_close")
+    private LocalDateTime dateClose;
+
 }

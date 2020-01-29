@@ -6,6 +6,7 @@ import ru.starokozhev.SocialManager.dto.MailWrapper;
 import ru.starokozhev.SocialManager.entity.Mail;
 import ru.starokozhev.SocialManager.repository.MailRepository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -47,6 +48,17 @@ public class MailService {
             throw new IllegalArgumentException("Почта не найдена!");
 
         return new MailWrapper(existMail);
+    }
+
+    public void delete(String mail) {
+        Mail existMail = mailRepository.findByEmail(mail);
+
+        if (existMail == null)
+            throw new IllegalArgumentException("Почта не найден!");
+
+        existMail.setDateClose(LocalDateTime.now());
+
+        mailRepository.save(existMail);
     }
 
     public List<MailWrapper> list() {
