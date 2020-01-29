@@ -141,9 +141,9 @@ public class AccountService {
         return new AccountWrapper(account);
     }
 
-    public List<AccountWrapper> list(BotWrapper wrapper) {
+    public List<AccountWrapper> list(AccountFilter filter) {
         User user = userService.getCurrentUser();
-        Bot bot = botRepository.findByNameAndUser(wrapper.getName(), user);
+        Bot bot = botRepository.findByNameAndUser(filter.getBotName(), user);
 
         if (bot == null)
             throw new IllegalArgumentException("Невозможно получить список аккаунтов. Бот не найден!");
