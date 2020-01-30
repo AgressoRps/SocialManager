@@ -9,12 +9,12 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 
-@NoArgsConstructor
+/*@NoArgsConstructor
 @Data
-@Accessors(chain = true)
-public class JwtAuthentication implements Authentication {
+@Accessors(chain = true)*/
+public class JwtAuthentication { /*implements Authentication {*/
 
-    private String token = null;
+    /*private String token = null;
     private boolean isAuthenticated = false;
     private UserDetails principal = null;
 
@@ -60,6 +60,6 @@ public class JwtAuthentication implements Authentication {
             return principal.getUsername();
         else
             return null;
-    }
+    }*/
 
 }

@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-@RestController
-@RequestMapping("${jwt.api}")
+/*@RestController
+@RequestMapping("${jwt.api}")*/
 public class JwtRestController {
-    @Autowired
+    /*@Autowired
     private JwtService service;
 
     @PostMapping("token")
@@ -22,5 +22,5 @@ public class JwtRestController {
     @PostMapping("auth")
     public JwtResponse tokenAsBody(@RequestBody JwtRequest request) throws NotFoundException {
         return service.getToken(request);
-    }
+    }*/
 }

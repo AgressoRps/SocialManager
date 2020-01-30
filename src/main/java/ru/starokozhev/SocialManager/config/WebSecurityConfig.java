@@ -12,7 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-/*@Configuration
+@Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -25,7 +25,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
+        /*http
                 .csrf().disable()
                 .exceptionHandling()
                 .authenticationEntryPoint(restAuthenticationEntryPoint)
@@ -57,28 +57,28 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // разрешаем делать логаут всем
                 .permitAll()
                 // делаем не валидной текущую сессию
-                .invalidateHttpSession(true);
-        /*http
+                .invalidateHttpSession(true);*/
+        http
                 .authorizeRequests()
                     .antMatchers("/", "/index", "/login", "/logout", "/register", "/css/**", "/js/**", "/img/**").permitAll()
-                    .anyRequest().authenticated()*/
-                /*.and()
+                    .anyRequest().authenticated()
+                .and()
                     .formLogin()
                     .loginPage("/login")
                     .loginProcessingUrl("/login") // указываем action с формы логина
                     .usernameParameter("username") // Указываем параметры логина и пароля с формы логина
                     .passwordParameter("password")
-                    .permitAll()*/
-                /*.and()
-                    .csrf().disable();*/
+                    .permitAll()
+                .and()
+                    .csrf().disable();
 
-        /*http
+        http
                 .logout()
                 .logoutSuccessUrl("/login") // указываем URL при удачном логауте
                 .logoutUrl("/logout")
                 .permitAll() // разрешаем делать логаут всем
-                .invalidateHttpSession(true); // делаем не валидной текущую сессию*/
-    /*}
+                .invalidateHttpSession(true); // делаем не валидной текущую сессию
+    }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -91,4 +91,3 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
 }
-*/

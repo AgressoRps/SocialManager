@@ -13,11 +13,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@Log4j2
-@Component
-public class JwtFilter extends OncePerRequestFilter {
+/*@Log4j2
+@Component*/
+public class JwtFilter { /*extends OncePerRequestFilter {*/
 
-    @Autowired
+    /*@Autowired
     private JwtAuthenticationManager authenticationManager;
 
     @Override
@@ -57,7 +57,7 @@ public class JwtFilter extends OncePerRequestFilter {
         } catch (AccessDeniedException ex) {
             log.error("Authentication failed from {}, cause: {}", request.getRemoteAddr(), ex);
             response.sendError(403, ex.getMessage());
-            /*catch (AccessDeniedException | InvalidDataException ex) {
+            *//*catch (AccessDeniedException | InvalidDataException ex) {
 
             log.error("Authentication failed from {}, cause: {}", request.getRemoteAddr(), ex);
 
@@ -66,12 +66,12 @@ public class JwtFilter extends OncePerRequestFilter {
             else if (ex instanceof InvalidDataException) response.sendError(401, ex.getMessage());
 
             return;
-        }*/
+        }*//*
         } catch (IllegalArgumentException e) {
             response.sendError(401, e.getMessage());
         }
 
         filterChain.doFilter(request, response);
-    }
+    }*/
 
 }

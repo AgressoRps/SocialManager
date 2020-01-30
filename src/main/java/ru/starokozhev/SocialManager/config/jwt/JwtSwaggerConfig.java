@@ -13,10 +13,10 @@ import javax.annotation.PostConstruct;
 import java.util.Collections;
 import java.util.List;
 
-@Configuration
+//@Configuration
 public class JwtSwaggerConfig {
 
-    @Autowired
+    /*@Autowired
     private Docket docket;
 
     @Value("${jwt.api}")
@@ -44,6 +44,6 @@ public class JwtSwaggerConfig {
         AuthorizationScope[] authorizationScopes = new AuthorizationScope[1];
         authorizationScopes[0] = authorizationScope;
         return Collections.singletonList(new SecurityReference("JWT", authorizationScopes));
-    }
+    }*/
 
 }

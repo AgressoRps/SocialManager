@@ -23,7 +23,7 @@ public class ChangeFinderScheduler {
     private final SocialManagerBot socialManagerBot;
     private final UserRepository userRepository;
 
-    @Scheduled(fixedRate = 60000)
+    //@Scheduled(fixedRate = 60000)
     public void findChangesInVtopeBot() {
         List<User> updatedUsers = userRepository.findUsersByUpdateFromVtopeIsNotNull();
 

@@ -18,11 +18,11 @@ import ru.starokozhev.SocialManager.service.UserService;
 
 import java.util.Date;
 
-@Log4j2
-@Component
-public class JwtAuthenticationManager implements AuthenticationManager {
+/*@Log4j2
+@Component*/
+public class JwtAuthenticationManager { /*implements AuthenticationManager {*/
 
-    @Autowired
+    /*@Autowired
     private UserService userService;
 
     @Autowired
@@ -82,6 +82,6 @@ public class JwtAuthenticationManager implements AuthenticationManager {
     private void throwIfNull(Object o) {
         if (o == null)
             throw new IllegalArgumentException("Неверный токен");
-    }
+    }*/
 
 }

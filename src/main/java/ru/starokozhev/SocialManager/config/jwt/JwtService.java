@@ -19,10 +19,10 @@ import ru.starokozhev.SocialManager.service.UserService;
 import java.util.Calendar;
 import java.util.Date;
 
-@Component
+//@Component
 public class JwtService {
 
-    @Autowired
+    /*@Autowired
     private UserService userService;
 
     @Autowired
@@ -92,5 +92,5 @@ public class JwtService {
                 .setExpirationDate(expirationDate.getTime().getTime())
                 .setToken(token)
                 .setUser(user.getUsername());
-    }
+    }*/
 }

@@ -16,13 +16,13 @@ public class MvcConfig implements WebMvcConfigurer {
         return container -> container.addErrorPages(new ErrorPage(HttpStatus.NOT_FOUND, "/"));
     }
 
-    /*@Override
+    @Override
     public void addViewControllers(ViewControllerRegistry registry) {
-        registry.addViewController("/index").setViewName("index");
+        /*registry.addViewController("/index").setViewName("index");
         registry.addViewController("/").setViewName("index");
-        registry.addViewController("/login").setViewName("index");
+        registry.addViewController("/login").setViewName("index");*/
         //registry.addViewController("/registration").setViewName("registration");
-    }*/
+    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
