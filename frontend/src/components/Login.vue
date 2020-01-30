@@ -8,7 +8,7 @@
     <h5>You're not logged in - so you don't see much here. Try to log in:</h5>
 
     <form @submit.prevent="callLogin()">
-      <input type="text" placeholder="username" v-model="user">
+      <input type="text" placeholder="username" v-model="username">
       <input type="password" placeholder="password" v-model="password">
       <b-btn variant="success" type="submit">Login</b-btn>
       <p v-if="error" class="error">Bad login information</p>
@@ -24,7 +24,7 @@ export default {
   data () {
     return {
       loginError: false,
-      user: '',
+      username: '',
       password: '',
       error: false,
       errors: []
@@ -33,7 +33,7 @@ export default {
   methods: {
     callLogin() {
       this.errors = [];
-      this.$store.dispatch("login", { user: this.user, password: this.password})
+      this.$store.dispatch("user/AUTH_REQUEST", { username: this.username, password: this.password})
         .then(() => {
           this.$router.push('/Protected')
         })

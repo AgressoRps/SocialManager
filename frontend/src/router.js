@@ -10,7 +10,7 @@ const router = new Router({
     routes: [
         { path: '/', name: 'Index', component: () => import('@/components/Index') },
         { path: '/member/:id', name: 'User', component: () => import('@/components/User') },
-        { path: '/auth', name: 'Auth', component: () => import('@/components/Auth') },
+        { path: '/login', name: 'Login', component: () => import('@/components/Login') },
         //{ path: '/login', component: Login },
         /*{
             path: '/protected',
@@ -31,7 +31,7 @@ router.beforeEach((to, from, next) => {
         // if not, redirect to login page.
         if (!store.getters.isLoggedIn) {
             next({
-                path: '/auth'
+                path: '/login'
             })
         } else {
             next();

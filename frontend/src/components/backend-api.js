@@ -34,9 +34,17 @@ export default {
         })
         //return AXIOS.post(`/auth`,  { 'username': user, 'password': password });
     },*/
-    auth(user, password) {
-        var data = { login : user, password : password };
-        return AXIOS.post(`/api/jwt/auth`, data);
+    auth(username, password) {
+        console.log(username + " " + password);
+
+        const requestOptions = {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ username, password })
+          };
+        //var data = { login : user, password : password };
+        //return AXIOS.post(`/login`,  { username, password });
+        return fetch(`/login`, requestOptions)
     },
 
     getUserf() {

@@ -16,8 +16,8 @@ const getters = {
 };
 
 const actions = {
-  AUTH_REQUEST: ({ commit }, {login, password}) => new Promise((resolve, reject) => {
-   api.auth(login, password)
+  AUTH_REQUEST: ({ commit }, {username, password}) => new Promise((resolve, reject) => {
+   api.auth(username, password)
       .then((resp) => {
         Vue.prototype.$http = axios;
         const token = resp.data.token;
