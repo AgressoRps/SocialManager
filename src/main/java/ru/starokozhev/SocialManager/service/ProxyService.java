@@ -69,6 +69,16 @@ public class ProxyService {
         return new ProxyWrapper(proxy);
     }
 
+    public ProxyWrapper getByIpAndPortAndUser(String ip, String port) {
+        User user = userService.getCurrentUser();
+        Proxy proxy = proxyRepository.findProxyByIpAndPortAndUser(ip, port, user);
+
+        if (proxy == null)
+            throw new IllegalArgumentException("Прокси не найден!");
+
+        return new ProxyWrapper(proxy);
+    }
+
     public void delete(Long id) {
         Proxy proxy = proxyRepository.findProxyById(id);
 

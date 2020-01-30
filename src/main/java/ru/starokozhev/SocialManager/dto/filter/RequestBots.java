@@ -6,12 +6,12 @@ import ru.starokozhev.SocialManager.entity.User;
 
 @Data
 @NoArgsConstructor
-public class RequestBotsFilter {
+public class RequestBots {
 
     private String user;
     private String key;
 
-    public RequestBotsFilter(User user) {
+    public RequestBots(User user) {
         toWrapper(user);
     }
 

@@ -6,12 +6,11 @@ import org.springframework.http.*;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
-import ru.starokozhev.SocialManager.dto.filter.RequestBotsFilter;
+import ru.starokozhev.SocialManager.dto.filter.RequestBots;
 import ru.starokozhev.SocialManager.dto.vtope.VtopeBotListWrapper;
 import ru.starokozhev.SocialManager.dto.vtope.VtopeBotWrapper;
 import ru.starokozhev.SocialManager.entity.User;
 import ru.starokozhev.SocialManager.repository.UserRepository;
-import ru.starokozhev.SocialManager.service.UserService;
 
 import java.util.List;
 
@@ -32,13 +31,13 @@ public class ChangeFinderScheduler {
 
             for (User user : updatedUsers) {
                 if (user.getVtopeKey() != null && user.getVtopeUser() != null) {
-                    RequestBotsFilter filter = new RequestBotsFilter();
+                    RequestBots filter = new RequestBots();
                     filter.setKey(user.getVtopeKey());
                     filter.setUser(user.getVtopeUser());
 
                     HttpHeaders headers = new HttpHeaders();
                     headers.set("Accept", MediaType.APPLICATION_JSON_VALUE);
-                    HttpEntity<RequestBotsFilter> requestEntity = new HttpEntity<>(filter, headers);
+                    HttpEntity<RequestBots> requestEntity = new HttpEntity<>(filter, headers);
 
                     String url = "https://vto.pe/botcontrol/list";
                     ResponseEntity<VtopeBotListWrapper> responseEntity = restTemplate.exchange(
