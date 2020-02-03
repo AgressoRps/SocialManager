@@ -6,6 +6,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -29,7 +30,7 @@ public class CustomAuthenticationProvider implements org.springframework.securit
     }
 
     @Override
-    public Authentication authenticate(@RequestBody Authentication authentication) throws AuthenticationException {
+    public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String username = authentication.getName();
         String password = authentication.getCredentials().toString();
 
@@ -42,7 +43,12 @@ public class CustomAuthenticationProvider implements org.springframework.securit
                 userFromDb.getEmail().toUpperCase().equals(username.toUpperCase())) &&
                 passwordEncoder.matches(password, userFromDb.getPassword())) {
 
-            return new UsernamePasswordAuthenticationToken(username, passwordEncoder.encode(password), Collections.emptyList());
+            authentication = new UsernamePasswordAuthenticationToken(username, passwordEncoder.encode(password), Collections.emptyList());
+
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            return authentication;
+            //return new UsernamePasswordAuthenticationToken(username, passwordEncoder.encode(password), Collections.emptyList());
         } else {
             throw new BadCredentialsException("Не правильный логин или пароль");
         }

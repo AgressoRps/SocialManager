@@ -43,6 +43,8 @@ dependencies {
 	compile group: 'org.seleniumhq.selenium', name: 'selenium-java', version: '3.141.59'
 	compile group: 'com.squareup.okhttp3', name: 'okhttp', version: '4.2.2'
 
+	//Instagram private api
+	compile 'org.brunocvcunha.instagram4j:instagram4j:1.13'
 
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'

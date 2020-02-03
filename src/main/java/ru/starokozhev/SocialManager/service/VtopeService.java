@@ -35,7 +35,7 @@ public class VtopeService {
     private final UserService userService;
     private final RestTemplate restTemplate;
 
-    //@Scheduled(fixedDelay = 60000) //fixedRate = 60000
+    @Scheduled(fixedDelay = 60000) //fixedRate = 60000
     public void checkUpdates() {
         User user = userService.getCurrentUser();
 

@@ -17,11 +17,11 @@ export default {
     createUser(firstName, lastName) {
         return AXIOS.post(`/user/` + firstName + '/' + lastName);
     },
-    /*auth(user, password) {
+    auth(user, password) {
         var data = { username : user, password : password };
         return axios({
             method: 'post',
-            url: '/auth',
+            url: '/login',
             data: qs.stringify(data),
             headers: {
                 'Access-Control-Allow-Origin': '*',
@@ -33,8 +33,8 @@ export default {
             }
         })
         //return AXIOS.post(`/auth`,  { 'username': user, 'password': password });
-    },*/
-    auth(username, password) {
+    },
+    /*auth(username, password) {
         console.log(username + " " + password);
 
         const requestOptions = {
@@ -45,7 +45,7 @@ export default {
         //var data = { login : user, password : password };
         //return AXIOS.post(`/login`,  { username, password });
         return fetch(`/login`, requestOptions)
-    },
+    },*/
 
     getUserf() {
         return AXIOS.get(`/user/` + 1);

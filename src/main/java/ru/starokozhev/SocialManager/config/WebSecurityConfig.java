@@ -10,8 +10,14 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.web.csrf.CsrfFilter;
 
+/*
 @Configuration
 @EnableWebSecurity
 @RequiredArgsConstructor
@@ -25,7 +31,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        /*http
+        */
+/*http
                 .csrf().disable()
                 .exceptionHandling()
                 .authenticationEntryPoint(restAuthenticationEntryPoint)
@@ -57,7 +64,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 // разрешаем делать логаут всем
                 .permitAll()
                 // делаем не валидной текущую сессию
-                .invalidateHttpSession(true);*/
+                .invalidateHttpSession(true);*//*
+
         http
                 .authorizeRequests()
                     .antMatchers("/", "/index", "/login", "/logout", "/register", "/css/**", "/js/**", "/img/**").permitAll()
@@ -80,14 +88,29 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .invalidateHttpSession(true); // делаем не валидной текущую сессию
     }
 
+    @Bean
     @Override
+    public UserDetailsService userDetailsService() {
+        UserDetails user =
+                User.withDefaultPasswordEncoder()
+                        .username("user")
+                        .password("password")
+                        .roles("USER")
+                        .build();
+
+        return new InMemoryUserDetailsManager(user);
+    }
+
+    */
+/*@Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(customAuthenticationProvider);
-    }
+    }*//*
+
 
     @Bean
     public BCryptPasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
     }
 
-}
+}*/
